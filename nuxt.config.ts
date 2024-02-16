@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+const backendUrl = "http://localhost:8000";
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
@@ -13,6 +16,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "HikeNet",
+    },
+  },
+  runtimeConfig: {
+    public: {
+      apiPath: backendUrl,
     },
   },
   shadcn: {
