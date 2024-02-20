@@ -8,5 +8,14 @@
 </template>
 
 <script setup>
-const { data, pending } = useApi('/')
+const data = await useApi('/auth/login', {
+  method: 'POST', body: {
+    username: 'multiparedes',
+    password: '1234'
+  },
+
+})
+
+
+await useApi('/users')
 </script>
