@@ -1,13 +1,11 @@
 // require dotenv and configure it
 require("dotenv").config();
-
-// rest of your Nuxt.js configuration
 const backendUrl = process.env.BACKEND_BASE_URL || "http://localhost:8000";
 
-export default {
+export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "nuxt-icon"],
   css: ["~/css/main.css"],
   postcss: {
     plugins: {
@@ -26,14 +24,7 @@ export default {
     },
   },
   shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
     prefix: "",
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
     componentDir: "./components/ui",
   },
-};
+});
