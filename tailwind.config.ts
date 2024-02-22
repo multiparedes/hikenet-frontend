@@ -1,4 +1,5 @@
 const animate = require("tailwindcss-animate");
+const colors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,6 +9,7 @@ module.exports = {
     "./components/**/*.{ts,tsx,vue}",
     "./app/**/*.{ts,tsx,vue}",
     "./src/**/*.{ts,tsx,vue}",
+    "formkit.theme.ts",
   ],
   theme: {
     container: {
@@ -31,6 +33,14 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      colors: {
+        primary: colors.green,
+        secondary: colors.sky,
+        content: {
+          DEFAULT: "#eff1ef",
+          dark: "#242923",
+        },
       },
     },
   },

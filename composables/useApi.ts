@@ -1,10 +1,30 @@
-type UseApiType = typeof useFetch;
-
-export const useApi: UseApiType = (path: string, options: any = {}) => {
+const useApi = () => {
   const config = useRuntimeConfig();
 
-  options.baseURL = config.public.apiPath as string;
-  options.credentials = "include";
+  const makeRequest = (method: string, path: string, options: any = {}) => {
+    const requestOptions = {
+      ...options,
+      baseURL: config.public.apiPath as string,
+      credentials: "include",
+      method: method.toUpperCase(),
+    };
 
-  return useFetch(path, options);
+    return $fetch(path, requestOptions);
+  };
+
+  const get = (path: string, options: any = {}) => {
+    return makeRequest("GET", path, options);
+  };
+
+  const post = (path: string, options: any = {}) => {
+    return makeRequest("POST", path, options);
+  };
+
+  const patch = (path: string, options: any = {}) => {
+    return makeRequest("PATCH", path, options);
+  };
+
+  return { get, post, patch };
 };
+
+export default useApi;

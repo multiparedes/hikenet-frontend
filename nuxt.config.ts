@@ -5,7 +5,7 @@ const backendUrl = process.env.BACKEND_BASE_URL || "http://localhost:8000";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "nuxt-icon"],
+  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "nuxt-icon", "@formkit/nuxt"],
   css: ["~/css/main.css"],
   postcss: {
     plugins: {
@@ -26,5 +26,8 @@ export default defineNuxtConfig({
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",
+  },
+  formkit: {
+    autoImport: true,
   },
 });
