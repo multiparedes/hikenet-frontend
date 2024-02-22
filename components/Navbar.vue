@@ -8,7 +8,7 @@
         </NuxtLink>
 
         <div class="flex gap-4">
-            <Button variant="link" link="/auth?signup">Crear cuenta</Button>
+            <Button variant="link" link="/auth?signup" class="md:block hidden">Crear cuenta</Button>
             <Button link="/auth">Iniciar sesion</Button>
         </div>
     </Card>

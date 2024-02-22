@@ -1,7 +1,7 @@
 <template>
     <section class="h-[85vh] grid place-content-center md:grid-cols-2 grid-cols-1 gap-12 px-6 items-center">
-        <div class="flex justify-center gap-6 flex-col md:text-left text-center">
-            <p class="text-6xl leading-tight">
+        <div class="flex justify-center sm:items-start items-center gap-6 flex-col md:text-left text-center">
+            <p class="md:text-6xl text-4xl leading-tight">
                 Bienvenidos a <span class="bg-gradient-to-r from-primary-400 to-secondary-400 text-gradient">HikeNet</span>,
                 la mejor plataforma de excursiones.
             </p>
