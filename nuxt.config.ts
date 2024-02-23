@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@formkit/nuxt",
     "@nuxt-alt/auth",
+    "@pinia/nuxt",
   ],
   css: ["~/css/main.css"],
   postcss: {
@@ -43,13 +44,28 @@ export default defineNuxtConfig({
       callback: "/auth",
       home: "/",
     },
+    stores: {
+      state: {
+        namespace: "auth",
+      },
+      pinia: {
+        enabled: false,
+        namespace: "auth",
+      },
+      cookie: {
+        enabled: true,
+        options: {
+          path: "/",
+          sameSite: "lax",
+        },
+      },
+    },
     strategies: {
       cookie: {
         cookie: {
           name: "auth._token.cookie",
         },
         user: {
-          property: "user",
           autoFetch: false,
         },
         endpoints: {
