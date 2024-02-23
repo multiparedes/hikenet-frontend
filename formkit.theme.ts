@@ -189,4 +189,8 @@ const globals: Record<string, Record<string, boolean>> = {
     "text-neutral-700": true,
     "dark:text-neutral-300": true,
   },
+  asterisk: {
+    "text-red-600": true,
+    "ml-1": true,
+  },
 };

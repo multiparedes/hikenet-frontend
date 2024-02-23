@@ -1,7 +1,7 @@
 <template>
     <section class="grid place-content-center h-full">
 
-        <Card class="grid md:grid-cols-2 grid-cols-1 gap-4 p-6">
+        <Card class="grid md:grid-cols-2 grid-cols-1 gap-4 p-6 items-center">
             <div class="grid place-content-center">
                 <FormKit type="form" :show-actions="false" @submit="submitAuth" :actions="false">
                     <FormKit name="username" label="Nombre de usuario" validation="required"

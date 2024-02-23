@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@formkit/addons": "^1.5.9",
+    "@formkit/core": "^1.5.9",
     "@formkit/inputs": "^1.5.9",
     "@formkit/nuxt": "^1.5.9",
     "@formkit/tailwindcss": "next",
