@@ -4,12 +4,27 @@
         <Card class="grid md:grid-cols-2 grid-cols-1 gap-4 p-6">
             <div class="grid place-content-center">
                 <FormKit type="form" :show-actions="false" @submit="submitAuth" :actions="false">
-                    <FormKit type="text" name="username" label="Nombre de usuario" validation="required"
+                    <FormKit name="username" label="Nombre de usuario" validation="required"
                         placeholder="Nombre de usuario..." />
+
+
+                    <div v-if="!logging">
+                        <div class="grid grid-cols-2 gap-x-4">
+                            <FormKit name="first_name" label="Nombre" validation="required" placeholder="Nombre..." />
+                            <FormKit name="last_name" label="Apellidos" placeholder="Apellidos..." />
+                            <div class="col-span-2">
+                                <FormKit type="email" name="email" label="Correo electrónico"
+                                    placeholder="Correo electrónico..." validation="email|required" />
+                            </div>
+                        </div>
+                    </div>
+
                     <FormKit type="password" name="password" label="Contraseña" validation="required"
                         placeholder="Contraseña..." />
 
-                    <Button class="w-full" :loading="pendingAuth">{{ logging ? 'Iniciar sesion' : 'Crear cuenta' }}</Button>
+
+                    <Button class="w-full" :loading="pendingAuth">{{ logging ? 'Iniciar sesion' : 'Crear cuenta'
+                    }}</Button>
                 </FormKit>
             </div>
 

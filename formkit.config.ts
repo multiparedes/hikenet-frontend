@@ -1,14 +1,16 @@
-import { DefaultConfigOptions } from "@formkit/vue";
-import "@formkit/themes/genesis";
+import { defaultConfig, createInput } from "@formkit/vue";
+import { rootClasses } from "./formkit.theme";
 import { createAutoAnimatePlugin } from "@formkit/addons";
 
-// Only needed until beta.5 is out:
-if (typeof global !== "undefined") {
-  (global as Record<string, any>).File = function () {};
-}
+import InputWrapper from "@/components/forms/InputWrapper.vue";
 
-const config: DefaultConfigOptions = {
+export default defaultConfig({
+  locale: "es",
+  config: {
+    rootClasses,
+  },
+  inputs: {
+    text: createInput(InputWrapper, { props: ["icon", "label"] }),
+  },
   plugins: [createAutoAnimatePlugin()],
-};
-
-export default config;
+});
