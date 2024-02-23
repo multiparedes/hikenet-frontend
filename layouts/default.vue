@@ -3,13 +3,10 @@
     <Toaster />
 
     <div class="flex-grow flex justify-center">
-      <div class="grid gap-4 py-4 grid-cols-1 mx-4 w-full max-w-screen-xl ">
-        <div class="min-h-[90vh]">
-          <Navbar />
+      <div class="flex flex-col gap-4 py-4 mx-4 w-full max-w-screen-xl">
+        <Navbar />
 
-          <slot></slot>
-
-        </div>
+        <slot></slot>
       </div>
     </div>
     <Footer />

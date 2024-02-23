@@ -5,7 +5,13 @@ const backendUrl = process.env.BACKEND_BASE_URL || "http://localhost:8000";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "nuxt-icon", "@formkit/nuxt"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "nuxt-icon",
+    "@formkit/nuxt",
+    "@nuxt-alt/auth",
+  ],
   css: ["~/css/main.css"],
   postcss: {
     plugins: {
@@ -29,5 +35,34 @@ export default defineNuxtConfig({
   },
   formkit: {
     autoImport: true,
+  },
+  auth: {
+    redirect: {
+      login: "/auth",
+      logout: "/",
+      callback: "/auth",
+      home: "/",
+    },
+    strategies: {
+      cookie: {
+        cookie: {
+          name: "auth._token.cookie",
+        },
+        user: {
+          property: "user",
+          autoFetch: false,
+        },
+        endpoints: {
+          login: { url: `${backendUrl}/auth/login`, method: "post" },
+          logout: { url: `${backendUrl}/auth/logout`, method: "post" },
+        },
+      },
+      local: {
+        login: {
+          url: `${backendUrl}/auth/login`,
+          method: "post",
+        },
+      },
+    },
   },
 });

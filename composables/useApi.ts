@@ -9,7 +9,7 @@ const useApi = () => {
       method: method.toUpperCase(),
     };
 
-    return $fetch(path, requestOptions);
+    return useFetch(path, requestOptions);
   };
 
   const get = (path: string, options: any = {}) => {
