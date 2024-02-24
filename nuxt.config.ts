@@ -70,6 +70,7 @@ export default defineNuxtConfig({
         },
         endpoints: {
           login: { url: `${backendUrl}/auth/login`, method: "post" },
+          user: { url: `${backendUrl}/auth/user`, method: "get" },
           logout: { url: `${backendUrl}/auth/logout`, method: "post" },
         },
       },
