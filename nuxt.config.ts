@@ -44,22 +44,7 @@ export default defineNuxtConfig({
       callback: "/auth",
       home: "/",
     },
-    stores: {
-      state: {
-        namespace: "auth",
-      },
-      pinia: {
-        enabled: false,
-        namespace: "auth",
-      },
-      cookie: {
-        enabled: true,
-        options: {
-          path: "/",
-          sameSite: "lax",
-        },
-      },
-    },
+
     strategies: {
       cookie: {
         global: true,
@@ -73,12 +58,6 @@ export default defineNuxtConfig({
         endpoints: {
           login: { url: `${backendUrl}/auth/login`, method: "post" },
           logout: { url: `${backendUrl}/auth/logout`, method: "post" },
-        },
-      },
-      local: {
-        login: {
-          url: `${backendUrl}/auth/login`,
-          method: "post",
         },
       },
     },
