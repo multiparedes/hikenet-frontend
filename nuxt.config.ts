@@ -38,16 +38,41 @@ export default defineNuxtConfig({
     autoImport: true,
   },
   auth: {
+    stores: {
+      state: {
+        namespace: "auth",
+      },
+      pinia: {
+        enabled: false,
+        namespace: "auth",
+      },
+      cookie: {
+        enabled: true,
+        prefix: "auth.",
+        options: {
+          path: "/",
+          sameSite: "lax",
+          secure: true,
+          domain: useRuntimeConfig().public.apiPath,
+        },
+      },
+      local: {
+        enabled: false,
+        prefix: "auth.",
+      },
+      session: {
+        enabled: false,
+        prefix: "auth.",
+      },
+    },
     redirect: {
       login: "/auth",
       logout: "/",
       callback: "/auth",
       home: "/",
     },
-
     strategies: {
       cookie: {
-        global: true,
         cookie: {
           name: "auth._token.cookie",
         },

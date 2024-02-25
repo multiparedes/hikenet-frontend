@@ -89,9 +89,11 @@
 
 <script setup lang="ts">
 import { useToast } from "@/components/ui/toast/use-toast";
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+
 const { toast } = useToast();
 
-const auth = useAuth();
 const pendingAuth = ref<boolean>(false);
 
 const logging = computed(() => {
@@ -99,26 +101,18 @@ const logging = computed(() => {
   return !(query && "signup" in query);
 });
 
-definePageMeta({
-  middleware: [
-    function () {
-      if (useAuth().loggedIn) {
-        return navigateTo("/");
-      }
-    },
-  ],
-});
-
 async function submitAuth(values: Object) {
   pendingAuth.value = true;
 
   try {
+    const auth = useAuth();
+
     if (!logging.value) {
       const { error } = await useApi().post("/auth/signup", {
         body: values,
       });
 
-      if (error.value) {
+      if (error) {
         toast({
           title: `Error en el registro`,
           description: "Ups, algo salió mal.",
@@ -132,18 +126,26 @@ async function submitAuth(values: Object) {
 
     const response: any = await auth.login({ body: values });
 
-    await auth.setUser(response._data.user);
-    await auth.setUserToken(response._data.token);
+    const user = {
+      ...response._data.user,
+      access_token: response._data.token,
+    };
+
+    console.log(user);
+
+    await auth.setUser(user);
+    await auth.setUserToken(user.access_token);
 
     toast({
-      title: `${response._data.user?.username} ${
-        logging.value ? "inició session" : "se registró"
+      title: `${user?.username} ${
+        logging.value ? "inició sesión" : "se registró"
       } correctamente`,
       variant: "success",
     });
 
-    return navigateTo("/");
+    navigateTo("/");
   } catch (error) {
+    console.log(error);
     toast({
       title: `Error en el registro`,
       description: "Ups, algo salió mal.",

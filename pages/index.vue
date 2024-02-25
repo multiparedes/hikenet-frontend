@@ -3,4 +3,6 @@
   <Dashboard v-else />
 </template>
 
-<script setup lang="ts"></script>
+<script setup>
+console.log(useAuth());
+</script>

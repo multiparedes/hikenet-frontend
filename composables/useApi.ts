@@ -7,6 +7,11 @@ const useApi = () => {
       baseURL: config.public.apiPath as string,
       credentials: "include",
       method: method.toUpperCase(),
+      headers: {
+        Authorization: useAuth().loggedIn
+          ? `${useAuth()?.user?.access_token}`
+          : "",
+      },
     };
 
     return useFetch(path, requestOptions);
