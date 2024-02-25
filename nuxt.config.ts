@@ -62,6 +62,7 @@ export default defineNuxtConfig({
     },
     strategies: {
       cookie: {
+        global: true,
         cookie: {
           name: "auth._token.cookie",
         },
