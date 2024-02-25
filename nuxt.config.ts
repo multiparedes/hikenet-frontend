@@ -1,6 +1,7 @@
 // require dotenv and configure it
 require("dotenv").config();
 const backendUrl = process.env.BACKEND_BASE_URL || "http://localhost:8000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:8000";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -53,7 +54,7 @@ export default defineNuxtConfig({
           path: "/",
           sameSite: "lax",
           secure: true,
-          domain: useRuntimeConfig().public.apiPath,
+          domain: frontendUrl,
         },
       },
       local: {
