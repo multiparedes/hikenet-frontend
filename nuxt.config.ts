@@ -66,11 +66,11 @@ export default defineNuxtConfig({
           name: "auth._token.cookie",
         },
         user: {
+          property: "user",
           autoFetch: false,
         },
         endpoints: {
           login: { url: `${backendUrl}/auth/login`, method: "post" },
-          user: { url: `${backendUrl}/auth/user`, method: "get" },
           logout: { url: `${backendUrl}/auth/logout`, method: "post" },
         },
       },
