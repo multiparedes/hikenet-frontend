@@ -25,7 +25,8 @@
 
 <script setup lang="ts">
 async function logoutUser() {
-  await useAuth().setUserToken("");
   await useAuth().logout();
+
+  return navigateTo("/");
 }
 </script>

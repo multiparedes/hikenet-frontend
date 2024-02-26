@@ -2,15 +2,15 @@ const useApi = () => {
   const config = useRuntimeConfig();
 
   const makeRequest = (method: string, path: string, options: any = {}) => {
+    const token = useCookie(`auth._token.cookie`).value;
+
     const requestOptions = {
       ...options,
       baseURL: config.public.apiPath as string,
       credentials: "include",
       method: method.toUpperCase(),
       headers: {
-        Authorization: useAuth().loggedIn
-          ? `${useAuth()?.user?.access_token}`
-          : "",
+        Authorization: token ?? "",
       },
     };
 

@@ -131,8 +131,6 @@ async function submitAuth(values: Object) {
       access_token: response._data.token,
     };
 
-    console.log(user);
-
     await auth.setUser(user);
     await auth.setUserToken(user.access_token);
 

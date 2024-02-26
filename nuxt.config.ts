@@ -1,7 +1,6 @@
 // require dotenv and configure it
 require("dotenv").config();
 const backendUrl = process.env.BACKEND_BASE_URL || "http://localhost:8000";
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:8000";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -57,13 +56,13 @@ export default defineNuxtConfig({
           name: "auth._token.cookie",
         },
         user: {
-          property: false,
+          property: "user",
           autoFetch: false,
         },
         endpoints: {
           login: { url: `${backendUrl}/auth/login`, method: "post" },
-          logout: { url: `${backendUrl}/auth/logout`, method: "post" },
-          user: false,
+          user: { url: `${backendUrl}/auth/user`, method: "get" },
+          logout: false,
         },
       },
     },
