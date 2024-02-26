@@ -40,30 +40,9 @@ export default defineNuxtConfig({
   },
   auth: {
     stores: {
-      state: {
-        namespace: "auth",
-      },
       pinia: {
-        enabled: false,
-        namespace: "auth",
-      },
-      cookie: {
         enabled: true,
-        prefix: "auth.",
-        options: {
-          path: "/",
-          sameSite: "lax",
-          secure: true,
-          domain: frontendUrl,
-        },
-      },
-      local: {
-        enabled: false,
-        prefix: "auth.",
-      },
-      session: {
-        enabled: false,
-        prefix: "auth.",
+        namespace: "auth",
       },
     },
     redirect: {
@@ -78,12 +57,13 @@ export default defineNuxtConfig({
           name: "auth._token.cookie",
         },
         user: {
-          property: "user",
+          property: false,
           autoFetch: false,
         },
         endpoints: {
           login: { url: `${backendUrl}/auth/login`, method: "post" },
           logout: { url: `${backendUrl}/auth/logout`, method: "post" },
+          user: false,
         },
       },
     },

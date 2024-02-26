@@ -124,7 +124,7 @@ async function submitAuth(values: Object) {
       }
     }
 
-    const response: any = await auth.login({ body: values });
+    const response: any = await auth.loginWith("cookie", { body: values });
 
     const user = {
       ...response._data.user,
