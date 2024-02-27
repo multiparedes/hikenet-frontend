@@ -96,9 +96,10 @@ const { toast } = useToast();
 
 const pendingAuth = ref<boolean>(false);
 
+const route = useRoute();
+
 const logging = computed(() => {
-  const query = useRoute().query;
-  return !(query && "signup" in query);
+  return !(route.query && "signup" in route.query);
 });
 
 async function submitAuth(values: Object) {
