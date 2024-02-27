@@ -30,6 +30,9 @@
         <MenubarMenu>
           <MenubarTrigger>{{ $t("navbar.social") }}</MenubarTrigger>
           <MenubarContent>
+            <MenubarItem @click="navigateTo('/profile')">{{
+              $t("navbar.edit_profile")
+            }}</MenubarItem>
             <MenubarItem>{{ $t("navbar.my_friends") }}</MenubarItem>
             <MenubarItem>{{ $t("navbar.search_friends") }}</MenubarItem>
           </MenubarContent>
@@ -38,7 +41,6 @@
         <MenubarMenu>
           <MenubarTrigger>{{ $t("navbar.preferences") }}</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>{{ $t("navbar.edit_profile") }}</MenubarItem>
             <MenubarItem><ColorToggle /></MenubarItem>
             <MenubarSub>
               <MenubarSubTrigger>{{ $t("navbar.language") }}</MenubarSubTrigger>
@@ -66,9 +68,9 @@
 const { availableLocales, setLocale } = useI18n();
 
 async function logoutUser() {
-  await useAuth().logout();
-  await useAuth().setUserToken("");
+  useAuth().logout();
+  useAuth().setUserToken("");
 
-  return navigateTo("/");
+  await navigateTo("");
 }
 </script>

@@ -46,7 +46,6 @@ export default defineNuxtConfig({
     fullPathRedirect: true,
     resetOnError: true,
     watchLoggedIn: true,
-    tokenValidationInterval: true,
     stores: {
       pinia: {
         enabled: true,
