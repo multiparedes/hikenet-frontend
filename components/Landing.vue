@@ -3,7 +3,7 @@
     class="grid place-content-center md:grid-cols-2 grid-cols-1 gap-12 px-6 items-center"
   >
     <div
-      class="flex justify-center sm:items-start items-center gap-6 flex-col md:text-left text-center"
+      class="flex justify-center md:items-start items-center gap-6 flex-col md:text-left text-center h-[80vh]"
     >
       <p class="md:text-6xl text-4xl leading-tight">
         Descubre tu próxima aventura en
@@ -24,6 +24,6 @@
       >
     </div>
 
-    <img class="hidden md:block" src="/logo.svg" alt="" />
+    <HeroModel class="hidden md:block" />
   </section>
 </template>

@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@formkit/nuxt",
     "@nuxt-alt/auth",
     "@pinia/nuxt",
+    "@tresjs/nuxt",
   ],
   css: ["~/css/main.css"],
   postcss: {
