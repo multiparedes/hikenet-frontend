@@ -1,8 +1,7 @@
 <template>
   <button @click="toggleTheme(otherTheme)">
     <Icon :name="icons[otherTheme]" />
-    <!--{{ $t("navbar.switch_mode", { mode: $t(`navbar.${otherTheme}`) }) }}-->
-    Cambiar a modo {{ otherTheme }}
+    {{ $t("navbar.toggle_mode", { mode: $t(otherTheme).toLocaleLowerCase() }) }}
   </button>
 </template>
 

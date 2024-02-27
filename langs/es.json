@@ -1,0 +1,32 @@
+{
+  "navbar": {
+    "publish": "Publicar",
+    "social": "Social",
+    "preferences": "Preferencias",
+    "edit_profile": "Editar perfil",
+    "toggle_mode": "Cambiar a modo {mode}",
+    "my_friends": "Mis amigos",
+    "search_friends": "Buscar amigos"
+  },
+  "landing": {
+    "hero": "Descubre tu próxima aventura en",
+    "subhero": "Conéctate con la naturaleza, descubre paisajes impresionantes y comparte momentos inolvidables. Únete hoy y empieza a explorar."
+  },
+  "footer": "Trabajo fin de grado - Martí Paredes 2024",
+  "auth": {
+    "login": "Iniciar sesión",
+    "register": "Crear cuenta",
+    "new_user": "Eres nuevo por aquí?",
+    "have_account": "Ya tienes una cuenta?",
+    "logout": "Cerrar sesión"
+  },
+  "start": "Empezar",
+  "username": "Nombre de usuario",
+  "name": "Nombre",
+  "last_name": "Apellidos",
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  "under_construction": "Bienvenido {user}, este sitio aún está en construcción 🚧, vuelve más tarde 👋.",
+  "ligth": "Claro",
+  "dark": "Oscuro"
+}

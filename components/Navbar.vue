@@ -17,39 +17,43 @@
 
     <!-- Reduced view, not logged om -->
     <div class="flex gap-4" v-if="!useAuth().loggedIn">
-      <Button variant="link" link="/auth?signup" class="md:block hidden"
-        >Crear cuenta</Button
-      >
-      <Button link="/auth">Iniciar sesión</Button>
+      <Button variant="link" link="/auth?signup" class="md:block hidden">{{
+        $t("auth.register")
+      }}</Button>
+      <Button link="/auth">{{ $t("auth.login") }}</Button>
     </div>
 
     <div class="flex" v-else>
       <Menubar>
-        <Button variant="link" class="-mr-1">Publicar</Button>
+        <Button variant="link" class="-mr-1">{{ $t("navbar.publish") }}</Button>
 
         <MenubarMenu>
-          <MenubarTrigger>Social</MenubarTrigger>
+          <MenubarTrigger>{{ $t("navbar.social") }}</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>Mis amigos</MenubarItem>
-            <MenubarItem>Buscar usuarios</MenubarItem>
+            <MenubarItem>{{ $t("navbar.my_friends") }}</MenubarItem>
+            <MenubarItem>{{ $t("navbar.search_friends") }}</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
 
         <MenubarMenu>
-          <MenubarTrigger>Preferencias</MenubarTrigger>
+          <MenubarTrigger>{{ $t("navbar.preferences") }}</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>Editar perfil</MenubarItem>
+            <MenubarItem>{{ $t("navbar.edit_profile") }}</MenubarItem>
             <MenubarItem><ColorToggle /></MenubarItem>
             <MenubarSub>
-              <MenubarSubTrigger>Idioma</MenubarSubTrigger>
+              <MenubarSubTrigger>{{ $t("navbar.language") }}</MenubarSubTrigger>
               <MenubarSubContent>
-                <MenubarItem>Español</MenubarItem>
-                <MenubarItem>English</MenubarItem>
-                <MenubarItem>Català</MenubarItem>
+                <MenubarItem
+                  v-for="locale in availableLocales"
+                  @click="setLocale(locale)"
+                  >{{ locale.toLocaleUpperCase() }}</MenubarItem
+                >
               </MenubarSubContent>
             </MenubarSub>
             <MenubarItem>
-              <Button class="w-full" @click="logoutUser">Cerrar sessión</Button>
+              <Button class="w-full" @click="logoutUser">{{
+                $t("auth.logout")
+              }}</Button>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
@@ -59,6 +63,8 @@
 </template>
 
 <script setup lang="ts">
+const { availableLocales, setLocale } = useI18n();
+
 async function logoutUser() {
   await useAuth().logout();
   await useAuth().setUserToken("");

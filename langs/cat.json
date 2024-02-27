@@ -1,0 +1,33 @@
+{
+  "navbar": {
+    "publish": "Publicar",
+    "social": "Social",
+    "preferences": "Preferències",
+    "edit_profile": "Editar perfil",
+    "toggle_mode": "Canviar a mode {mode}",
+    "my_friends": "Els meus amics",
+    "search_friends": "Cercar amics",
+    "language": "Idioma"
+  },
+  "landing": {
+    "hero": "Descobreix la teva propera aventura a",
+    "subhero": "Connecta amb la natura, descobreix paisatges impressionants i comparteix moments inoblidables. Uneix-te avui mateix i comença a explorar."
+  },
+  "footer": "Treball de fi de grau - Martí Paredes 2024",
+  "auth": {
+    "login": "Inicia sessió",
+    "register": "Crea compte",
+    "new_user": "Ets nou per aquí?",
+    "have_account": "Ja tens un compte?",
+    "logout": "Tancar sessió"
+  },
+  "start": "Començar",
+  "username": "Nom d'usuari",
+  "name": "Nom",
+  "last_name": "Cognoms",
+  "email": "Correu electrònic",
+  "password": "Contrasenya",
+  "under_construction": "Benvingut {user}, aquest lloc encara està en construcció 🚧, torna més tard 👋.",
+  "light": "Clar",
+  "dark": "Fosc"
+}

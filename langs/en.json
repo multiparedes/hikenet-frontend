@@ -1,0 +1,33 @@
+{
+  "navbar": {
+    "publish": "Publish",
+    "social": "Social",
+    "preferences": "Preferences",
+    "edit_profile": "Edit Profile",
+    "toggle_mode": "Toggle to {mode} Mode",
+    "my_friends": "My Friends",
+    "search_friends": "Search Friends",
+    "language": "Language"
+  },
+  "landing": {
+    "hero": "Discover your next adventure at",
+    "subhero": "Connect with nature, discover breathtaking landscapes, and share unforgettable moments. Join today and start exploring."
+  },
+  "footer": "Final Degree Project - Martí Paredes 2024",
+  "auth": {
+    "login": "Log in",
+    "register": "Register",
+    "new_user": "New around here?",
+    "have_account": "Already have an account?",
+    "logout": "Logout"
+  },
+  "start": "Start",
+  "username": "Username",
+  "name": "Name",
+  "last_name": "Last Name",
+  "email": "Email",
+  "password": "Password",
+  "under_construction": "Welcome {user}, this site is still under construction 🚧, come back later 👋.",
+  "light": "Light",
+  "dark": "Dark"
+}

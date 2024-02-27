@@ -1,20 +1,7 @@
 <template>
-  <p class="text-xl">
-    Welcome {{ useAuth()?.user?.username }}, this site is still under
-    construction 🚧, come back later 👋 .
+  <p class="text-xl text-center">
+    {{ $t("under_construction", { user: useAuth().user?.username }) }}
   </p>
-
-  <hr />
-
-  <p>Users list:</p>
-
-  <h1 v-if="pending">Loading <Icon name="svg-spinners:270-ring" /></h1>
-  <div class="flex flex-col gap-2 ml-2" v-else>
-    <span v-for="user in data">
-      · Username: {{ user.username }}, name:
-      {{ `${user.firstName} ${user?.lastName}` }}.
-    </span>
-  </div>
 </template>
 
 <script setup lang="ts">

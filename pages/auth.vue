@@ -3,7 +3,7 @@
     <Card class="grid grid-cols-1 gap-4 items-center p-0 overflow-clip">
       <div class="grid place-content-center p-6">
         <h1 class="text-center pb-4">
-          {{ logging ? "Iniciar sessión" : "Registrar-se" }}
+          {{ logging ? $t("auth.login") : $t("auth.register") }}
         </h1>
 
         <FormKit
@@ -14,30 +14,30 @@
         >
           <FormKit
             name="username"
-            label="Nombre de usuario"
+            :label="$t('username')"
+            :placeholder="`${$t('username')}...`"
             validation="required:trim"
-            placeholder="Nombre de usuario..."
           />
 
           <div v-if="!logging">
             <div class="grid grid-cols-2 gap-x-4">
               <FormKit
                 name="firstName"
-                label="Nombre"
+                :label="$t('name')"
                 validation="required:trim"
-                placeholder="Nombre..."
+                :placeholder="`${$t('name')}...`"
               />
               <FormKit
                 name="lastName"
-                label="Apellidos"
-                placeholder="Apellidos..."
+                :label="$t('last_name')"
+                :placeholder="`${$t('last_name')}...`"
               />
               <div class="col-span-2">
                 <FormKit
                   type="email"
                   name="email"
-                  label="Correo electrónico"
-                  placeholder="Correo electrónico..."
+                  :label="$t('email')"
+                  :placeholder="`${$t('email')}...`"
                   validation="email|required:trim"
                 />
               </div>
@@ -47,28 +47,28 @@
           <FormKit
             type="password"
             name="password"
-            label="Contraseña"
+            :label="$t('password')"
             validation="required:trim"
-            placeholder="Contraseña..."
+            :placeholder="`${$t('password')}...`"
           />
 
           <Button class="w-full" :loading="pendingAuth">
-            {{ logging ? "Iniciar sesion" : "Crear cuenta" }}
+            {{ logging ? $t("auth.login") : $t("auth.register") }}
           </Button>
         </FormKit>
 
         <div v-if="logging" class="mt-4 flex gap-1 text-center text-sm">
-          <p>Eres nuevo por aqui ?</p>
+          <p>{{ $t("auth.new_user") }}</p>
           <NuxtLink class="text-primary-600" to="/auth?signup">
-            Crear una cuenta</NuxtLink
-          >
+            {{ $t("auth.register") }}
+          </NuxtLink>
         </div>
 
         <div v-else class="mt-4 flex gap-1 text-center text-sm">
-          <p>Ya tenes una cuenta ?</p>
-          <NuxtLink class="text-primary-600" to="/auth"
-            >Iniciar sessión</NuxtLink
-          >
+          <p>{{ $t("auth.have_account") }}</p>
+          <NuxtLink class="text-primary-600" to="/auth">
+            {{ $t("auth.login") }}
+          </NuxtLink>
         </div>
       </div>
     </Card>

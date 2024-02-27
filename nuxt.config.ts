@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@tresjs/nuxt",
     "@nuxtjs/color-mode",
+    "@nuxtjs/i18n",
   ],
   css: ["~/css/main.css"],
   postcss: {
@@ -80,5 +81,8 @@ export default defineNuxtConfig({
     classPrefix: "",
     classSuffix: "",
     storageKey: "nuxt-color-mode",
+  },
+  i18n: {
+    vueI18n: "./i18n.config.ts",
   },
 });
