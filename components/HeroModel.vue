@@ -11,12 +11,14 @@
     <transition-fade :duration="2000">
       <TresCanvas v-show="hasFinishLoading" v-bind="gl" preset="realistic">
         <TresPerspectiveCamera
-          :position="[0, 0, 2]"
+          :position="[0, 0, 2.5]"
           :args="[45, 1, 0.1, 1000]"
         />
+        <OrbitControls v-bind="orbits" />
+
         <Suspense>
           <GLTFModel
-            path="/aiguille_dibona.glb"
+            path="/untitled.glb"
             scale="0.075"
             :rotation-y="Math.PI * 1.05"
           />
@@ -45,5 +47,14 @@ const gl = {
   alpha: true,
   shadowMapType: BasicShadowMap,
   outputColorSpace: SRGBColorSpace,
+};
+
+const orbits = {
+  enableZoom: false,
+  rotateSpeed: 0.5,
+  maxPolarAngle: Math.PI / 2,
+  minPolarAngle: Math.PI / 2,
+  enableDamping: true,
+  dampingFactor: 0.01,
 };
 </script>
