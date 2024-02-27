@@ -2,8 +2,6 @@ import { defaultConfig, createInput } from "@formkit/vue";
 import { rootClasses } from "./formkit.theme";
 import { createAutoAnimatePlugin } from "@formkit/addons";
 
-import InputWrapper from "@/components/forms/InputWrapper.vue";
-
 function addAsteriskPlugin(node: any) {
   const legends: string[] = []; // Define the type of legends array
 
@@ -51,9 +49,6 @@ function addAsteriskPlugin(node: any) {
 const config = defaultConfig({
   config: {
     rootClasses,
-  },
-  inputs: {
-    text: createInput(InputWrapper, { props: ["icon", "label"] }),
   },
   plugins: [createAutoAnimatePlugin(), addAsteriskPlugin],
 });

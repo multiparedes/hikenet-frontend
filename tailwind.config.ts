@@ -39,7 +39,7 @@ module.exports = {
         secondary: colors.sky,
         content: {
           DEFAULT: "#eff1ef",
-          dark: "#242923",
+          dark: "#bdc3bd",
         },
       },
     },

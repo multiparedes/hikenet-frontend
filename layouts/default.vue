@@ -1,5 +1,7 @@
 <template>
-  <main class="bg-content flex flex-col relative min-h-screen overflow-hidden">
+  <main
+    class="bg-content dark:bg-content-dark flex flex-col relative min-h-screen overflow-hidden"
+  >
     <Toaster />
 
     <div class="flex-grow flex justify-center">
@@ -12,3 +14,8 @@
     <Footer />
   </main>
 </template>
+
+<script setup>
+// Wake up render backend
+useApi().get("/");
+</script>

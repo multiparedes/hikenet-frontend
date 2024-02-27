@@ -1,6 +1,6 @@
 <template>
   <p class="text-xl">
-    Wellcome {{ useAuth()?.user?.username }}, this site is still under
+    Welcome {{ useAuth()?.user?.username }}, this site is still under
     construction 🚧, come back later 👋 .
   </p>
 

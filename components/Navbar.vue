@@ -4,9 +4,15 @@
       to="/"
       class="text-xl font-bold tracking-wider uppercase inline-flex items-center px-2 py-1 cursor-pointer hover:bg-primary-100 rounded-md transition-colors"
     >
-      <img class="aspect-square h-6 mr-2" src="/logo.svg" alt="HikeNet logo" />
-      Hike
-      <span class="text-primary-400">Net</span>
+      <img
+        class="aspect-square h-6 md:mr-2"
+        src="/logo.svg"
+        alt="HikeNet logo"
+      />
+      <p class="hidden md:block">
+        Hike
+        <span class="text-primary-400 -ml-1.5">Net</span>
+      </p>
     </NuxtLink>
 
     <!-- Reduced view, not logged om -->
@@ -17,8 +23,37 @@
       <Button link="/auth">Iniciar sesión</Button>
     </div>
 
-    <div v-else>
-      <Button @click="logoutUser()">Cerrar sesión</Button>
+    <div class="flex" v-else>
+      <Menubar>
+        <Button variant="link" class="-mr-1">Publicar</Button>
+
+        <MenubarMenu>
+          <MenubarTrigger>Social</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>Mis amigos</MenubarItem>
+            <MenubarItem>Buscar usuarios</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+
+        <MenubarMenu>
+          <MenubarTrigger>Preferencias</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>Editar perfil</MenubarItem>
+            <MenubarItem><ColorToggle /></MenubarItem>
+            <MenubarSub>
+              <MenubarSubTrigger>Idioma</MenubarSubTrigger>
+              <MenubarSubContent>
+                <MenubarItem>Español</MenubarItem>
+                <MenubarItem>English</MenubarItem>
+                <MenubarItem>Català</MenubarItem>
+              </MenubarSubContent>
+            </MenubarSub>
+            <Button class="w-full mt-1" @clik="logoutUser"
+              >Cerrar sessión</Button
+            >
+          </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
     </div>
   </Card>
 </template>

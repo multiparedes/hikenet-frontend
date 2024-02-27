@@ -1,9 +1,11 @@
 <template>
   <section class="grid place-content-center h-full">
-    <Card
-      class="grid md:grid-cols-2 grid-cols-1 gap-4 items-center p-0 overflow-clip"
-    >
+    <Card class="grid grid-cols-1 gap-4 items-center p-0 overflow-clip">
       <div class="grid place-content-center p-6">
+        <h1 class="text-center pb-4">
+          {{ logging ? "Iniciar sessión" : "Registrar-se" }}
+        </h1>
+
         <FormKit
           type="form"
           :show-actions="false"
@@ -55,34 +57,20 @@
           </Button>
         </FormKit>
 
-        <div v-if="logging" class="mt-2 flex flex-col text-center text-sm">
+        <div v-if="logging" class="mt-4 flex gap-1 text-center text-sm">
           <p>Eres nuevo por aqui ?</p>
-          <Button
-            variant="link"
-            class="text-primary-600"
-            icon="fluent:arrow-right-32-filled"
-            link="/auth?signup"
-            >Crear una cuenta</Button
+          <NuxtLink class="text-primary-600" to="/auth?signup">
+            Crear una cuenta</NuxtLink
           >
         </div>
 
-        <div v-else class="mt-2 flex flex-col text-center text-sm">
+        <div v-else class="mt-4 flex gap-1 text-center text-sm">
           <p>Ya tenes una cuenta ?</p>
-          <Button
-            variant="link"
-            class="text-primary-600"
-            icon="fluent:arrow-right-32-filled"
-            link="/auth"
-            >Ir al inicio de sessión</Button
+          <NuxtLink class="text-primary-600" to="/auth"
+            >Iniciar sessión</NuxtLink
           >
         </div>
       </div>
-
-      <img
-        src="/202792.webp"
-        alt="Image"
-        class="hidden md:block border-l-2 border-content grayscale-[15%] hover:grayscale-0 transition-all"
-      />
     </Card>
   </section>
 </template>

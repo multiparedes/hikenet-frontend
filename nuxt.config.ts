@@ -1,3 +1,5 @@
+import type { NuxtConfig } from "nuxt/schema";
+
 // require dotenv and configure it
 require("dotenv").config();
 const backendUrl = process.env.BACKEND_BASE_URL || "http://localhost:8000";
@@ -13,6 +15,7 @@ export default defineNuxtConfig({
     "@nuxt-alt/auth",
     "@pinia/nuxt",
     "@tresjs/nuxt",
+    "@nuxtjs/color-mode",
   ],
   css: ["~/css/main.css"],
   postcss: {
@@ -67,5 +70,15 @@ export default defineNuxtConfig({
         },
       },
     },
+  } as NuxtConfig["auth"],
+  colorMode: {
+    preference: "system", // default value of $colorMode.preference
+    fallback: "light", // fallback value if not system preference found
+    hid: "nuxt-color-mode-script",
+    globalName: "__NUXT_COLOR_MODE__",
+    componentName: "ColorScheme",
+    classPrefix: "",
+    classSuffix: "",
+    storageKey: "nuxt-color-mode",
   },
 });
