@@ -39,6 +39,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.161.0",
+    "uniqolor": "^1.1.1",
     "vee-validate": "^4.12.5",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5",

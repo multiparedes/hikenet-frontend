@@ -13,6 +13,8 @@
           :actions="false"
         >
           <FormKit
+            type="text"
+            :icon="true"
             name="username"
             :label="$t('username')"
             :placeholder="`${$t('username')}...`"

@@ -18,7 +18,7 @@
 
         <Suspense>
           <GLTFModel
-            path="/untitled.glb"
+            path="/aiguille_dibona.glb"
             scale="0.075"
             :rotation-y="Math.PI * 1.05"
           />
