@@ -6,7 +6,8 @@
     "edit_profile": "Editar perfil",
     "toggle_mode": "Cambiar a modo {mode}",
     "my_friends": "Mis amigos",
-    "search_friends": "Buscar amigos"
+    "search_friends": "Buscar usuarios",
+    "language": "Idioma"
   },
   "landing": {
     "hero": "Descubre tu próxima aventura en",
@@ -27,6 +28,6 @@
   "email": "Correo electrónico",
   "password": "Contraseña",
   "under_construction": "Bienvenido {user}, este sitio aún está en construcción 🚧, vuelve más tarde 👋.",
-  "ligth": "Claro",
+  "light": "Claro",
   "dark": "Oscuro"
 }

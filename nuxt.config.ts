@@ -43,6 +43,10 @@ export default defineNuxtConfig({
     autoImport: true,
   },
   auth: {
+    fullPathRedirect: true,
+    resetOnError: true,
+    watchLoggedIn: true,
+    tokenValidationInterval: true,
     stores: {
       pinia: {
         enabled: true,
@@ -73,8 +77,8 @@ export default defineNuxtConfig({
     },
   } as NuxtConfig["auth"],
   colorMode: {
-    preference: "system", // default value of $colorMode.preference
-    fallback: "light", // fallback value if not system preference found
+    preference: "system",
+    fallback: "light",
     hid: "nuxt-color-mode-script",
     globalName: "__NUXT_COLOR_MODE__",
     componentName: "ColorScheme",

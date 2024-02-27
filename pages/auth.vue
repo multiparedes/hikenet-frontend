@@ -101,7 +101,7 @@ async function submitAuth(values: Object) {
         body: values,
       });
 
-      if (error) {
+      if (error.value) {
         toast({
           title: `Error en el registro`,
           description: "Ups, algo salió mal.",

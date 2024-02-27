@@ -14,7 +14,6 @@
           :position="[0, 0, 2]"
           :args="[45, 1, 0.1, 1000]"
         />
-
         <Suspense>
           <GLTFModel
             path="/aiguille_dibona.glb"

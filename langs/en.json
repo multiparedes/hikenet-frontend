@@ -4,9 +4,9 @@
     "social": "Social",
     "preferences": "Preferences",
     "edit_profile": "Edit Profile",
-    "toggle_mode": "Toggle to {mode} Mode",
+    "toggle_mode": "Toggle to {mode} mode",
     "my_friends": "My Friends",
-    "search_friends": "Search Friends",
+    "search_friends": "Search users",
     "language": "Language"
   },
   "landing": {
