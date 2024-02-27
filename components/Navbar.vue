@@ -48,9 +48,9 @@
                 <MenubarItem>Català</MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
-            <Button class="w-full mt-1" @clik="logoutUser"
-              >Cerrar sessión</Button
-            >
+            <MenubarItem>
+              <Button class="w-full" @click="logoutUser">Cerrar sessión</Button>
+            </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
       </Menubar>

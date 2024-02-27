@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang="ts">
-console.log(useColorMode());
-
 const currentTheme = ref<string>(
   useColorMode().preference ?? useColorMode().value
 );
