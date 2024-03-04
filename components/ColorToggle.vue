@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 const currentTheme = ref<string>(
-  useColorMode().preference ?? useColorMode().value
+  useColorMode().preference ?? 'ligth'
 );
 const themes: string[] = ["light", "dark"];
 const icons: Record<string, string> = {
