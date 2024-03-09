@@ -1,6 +1,6 @@
 import en from "./langs/en.json";
 import es from "./langs/es.json";
-import cat from "./langs/cat.json";
+import ca from "./langs/ca.json";
 
 export default defineI18nConfig(() => ({
   legacy: false,
@@ -10,7 +10,7 @@ export default defineI18nConfig(() => ({
   messages: {
     en,
     es,
-    cat,
+    ca,
   },
   detectBrowserLanguage: {
     useCookie: true,

@@ -29,5 +29,15 @@
   "password": "Password",
   "under_construction": "Welcome {user}, this site is still under construction 🚧, come back later 👋.",
   "light": "Light",
-  "dark": "Dark"
+  "dark": "Dark",
+  "close": "Close",
+  "save": "Save",
+  "edit_profile_title": "Edit profile",
+  "edit_profile_subtitle": "Fill the form to update your profile",
+  "joined": "Joined at",
+  "friends": "Friends",
+  "edit": "Edit",
+  "follow": "Follow",
+  "message": "Message",
+  "no_description_yet": "This user dosen't have a description yet"
 }

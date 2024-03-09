@@ -29,5 +29,15 @@
   "password": "Contrasenya",
   "under_construction": "Benvingut {user}, aquest lloc encara està en construcció 🚧, torna més tard 👋.",
   "light": "Clar",
-  "dark": "Fosc"
+  "dark": "Fosc",
+  "close": "Tanca",
+  "save": "Desa",
+  "edit_profile_title": "Edita el perfil",
+  "edit_profile_subtitle": "Omple el formulari per actualitzar el teu perfil",
+  "joined": "S'ha unit el",
+  "friends": "Amics",
+  "edit": "Edita",
+  "follow": "Seguir",
+  "message": "Missatge",
+  "no_description_yet": "Aquest usuari encara no té una descripció"
 }

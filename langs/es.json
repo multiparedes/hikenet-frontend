@@ -29,5 +29,15 @@
   "password": "Contraseña",
   "under_construction": "Bienvenido {user}, este sitio aún está en construcción 🚧, vuelve más tarde 👋.",
   "light": "Claro",
-  "dark": "Oscuro"
+  "dark": "Oscuro",
+  "close": "Cerrar",
+  "save": "Guardar",
+  "edit_profile_title": "Editar perfil",
+  "edit_profile_subtitle": "Rellena el formulario para actualizar tu perfil",
+  "joined": "Se unió el",
+  "friends": "Amigos",
+  "edit": "Editar",
+  "follow": "Seguir",
+  "message": "Mensaje",
+  "no_description_yet": "Este usuario aún no tiene una descripción."
 }
