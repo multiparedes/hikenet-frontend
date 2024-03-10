@@ -6,7 +6,7 @@
           {{ logging ? $t("auth.login") : $t("auth.register") }}
         </h1>
 
-        <form type="form" v-auto-animate @submit="onSubmit">
+        <Form :validation="formSchema" @submit="submitAuth">
           <InputWrapper
             name="username"
             :label="$t('username')"
@@ -47,7 +47,7 @@
           <Button class="w-full mt-2" :loading="pendingAuth">
             {{ logging ? $t("auth.login") : $t("auth.register") }}
           </Button>
-        </form>
+        </Form>
 
         <div v-if="logging" class="mt-4 flex gap-1 text-center text-sm">
           <p>{{ $t("auth.new_user") }}</p>
@@ -69,10 +69,8 @@
 
 <script setup lang="ts">
 import { useToast } from "@/components/ui/toast/use-toast";
-import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
-import InputWrapper from "~/components/forms/InputWrapper.vue";
+import { InputWrapper, Form } from "~/components/forms";
 
 definePageMeta({
   middleware: "user-guest",
@@ -90,31 +88,19 @@ const logging = computed(() => {
 
 const formSchema = computed(() => {
   if (logging.value) {
-    return toTypedSchema(
-      z.object({
-        username: z.string().trim().min(4).max(50),
-        password: z.string().trim().min(4),
-      })
-    );
+    return {
+      username: z.string().trim().min(4).max(50),
+      password: z.string().trim().min(4),
+    };
   } else {
-    return toTypedSchema(
-      z.object({
-        username: z.string().trim().min(4).max(50),
-        firstName: z.string().trim().min(4).max(50),
-        lastName: z.string().max(100),
-        email: z.string().trim().email(),
-        password: z.string().trim().min(4),
-      })
-    );
+    return {
+      username: z.string().trim().min(4).max(50),
+      firstName: z.string().trim().min(4).max(50),
+      lastName: z.string().max(100),
+      email: z.string().trim().email(),
+      password: z.string().trim().min(4),
+    };
   }
-});
-
-const { handleSubmit } = useForm({
-  validationSchema: formSchema,
-});
-
-const onSubmit = handleSubmit((values) => {
-  submitAuth(values);
 });
 
 async function submitAuth(values: Object) {

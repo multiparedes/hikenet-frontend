@@ -10,7 +10,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 
 interface Props {
-  validation: Record<string, z.Schema>;
+  validation: object;
 }
 
 const props = defineProps<Props>();
