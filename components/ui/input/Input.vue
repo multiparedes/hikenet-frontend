@@ -90,17 +90,16 @@ function switchPasswordType() {
       class="absolute end-0 inset-y-0 flex items-center justify-center px-2 cursor-pointer"
       @click="switchPasswordType"
     >
-      <MyTooltip :text="$t('hide_show_password')">
-        <Icon
-          v-auto-animate
-          :name="
-            passwordVisible
-              ? 'fluent:eye-off-16-regular'
-              : 'fluent:eye-16-regular'
-          "
-          class="size-6 text-primary-500"
-        />
-      </MyTooltip>
+      <Icon
+        type="button"
+        v-auto-animate
+        :name="
+          passwordVisible
+            ? 'fluent:eye-off-16-regular'
+            : 'fluent:eye-16-regular'
+        "
+        class="size-6 text-primary-500"
+      />
     </span>
   </div>
 </template>
