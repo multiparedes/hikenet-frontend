@@ -11,12 +11,12 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
     "nuxt-icon",
-    "@formkit/nuxt",
     "@nuxt-alt/auth",
     "@pinia/nuxt",
     "@tresjs/nuxt",
     "@nuxtjs/color-mode",
     "@nuxtjs/i18n",
+    "@formkit/auto-animate/nuxt",
   ],
   css: ["~/css/main.css"],
   postcss: {
@@ -38,9 +38,6 @@ export default defineNuxtConfig({
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",
-  },
-  formkit: {
-    autoImport: true,
   },
   auth: {
     fullPathRedirect: true,

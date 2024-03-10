@@ -22,3 +22,6 @@ logs
 .env
 .env.*
 !.env.template
+
+# Ignore test pages
+/pages/test*

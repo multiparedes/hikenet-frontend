@@ -61,7 +61,7 @@
         </div>
 
         <p class="text-sm px-8">
-          {{ profile.description ?? $t("no_description_yet") }}
+          {{ profile?.description ?? $t("no_description_yet") }}
         </p>
       </div>
     </Card>

@@ -6,58 +6,48 @@
           {{ logging ? $t("auth.login") : $t("auth.register") }}
         </h1>
 
-        <FormKit
-          type="form"
-          :show-actions="false"
-          @submit="submitAuth"
-          :actions="false"
-        >
-          <FormKit
-            type="text"
-            :icon="true"
+        <form type="form" v-auto-animate @submit="onSubmit">
+          <InputWrapper
             name="username"
             :label="$t('username')"
             :placeholder="`${$t('username')}...`"
-            validation="required:trim"
+            icon="user"
           />
 
           <div v-if="!logging">
             <div class="grid grid-cols-2 gap-x-4">
-              <FormKit
+              <InputWrapper
                 name="firstName"
                 :label="$t('name')"
-                validation="required:trim"
                 :placeholder="`${$t('name')}...`"
               />
-              <FormKit
+              <InputWrapper
                 name="lastName"
                 :label="$t('last_name')"
                 :placeholder="`${$t('last_name')}...`"
               />
               <div class="col-span-2">
-                <FormKit
+                <InputWrapper
                   type="email"
                   name="email"
                   :label="$t('email')"
                   :placeholder="`${$t('email')}...`"
-                  validation="email|required:trim"
                 />
               </div>
             </div>
           </div>
-
-          <FormKit
+          <InputWrapper
             type="password"
             name="password"
+            icon="password"
             :label="$t('password')"
-            validation="required:trim"
             :placeholder="`${$t('password')}...`"
           />
 
-          <Button class="w-full" :loading="pendingAuth">
+          <Button class="w-full mt-2" :loading="pendingAuth">
             {{ logging ? $t("auth.login") : $t("auth.register") }}
           </Button>
-        </FormKit>
+        </form>
 
         <div v-if="logging" class="mt-4 flex gap-1 text-center text-sm">
           <p>{{ $t("auth.new_user") }}</p>
@@ -79,8 +69,14 @@
 
 <script setup lang="ts">
 import { useToast } from "@/components/ui/toast/use-toast";
-import { ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useForm } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/zod";
+import * as z from "zod";
+import InputWrapper from "~/components/forms/InputWrapper.vue";
+
+definePageMeta({
+  middleware: "user-guest",
+});
 
 const { toast } = useToast();
 
@@ -90,6 +86,35 @@ const route = useRoute();
 
 const logging = computed(() => {
   return !(route.query && "signup" in route.query);
+});
+
+const formSchema = computed(() => {
+  if (logging.value) {
+    return toTypedSchema(
+      z.object({
+        username: z.string().trim().min(4).max(50),
+        password: z.string().trim().min(4),
+      })
+    );
+  } else {
+    return toTypedSchema(
+      z.object({
+        username: z.string().trim().min(4).max(50),
+        firstName: z.string().trim().min(4).max(50),
+        lastName: z.string().max(100),
+        email: z.string().trim().email(),
+        password: z.string().trim().min(4),
+      })
+    );
+  }
+});
+
+const { handleSubmit } = useForm({
+  validationSchema: formSchema,
+});
+
+const onSubmit = handleSubmit((values) => {
+  submitAuth(values);
 });
 
 async function submitAuth(values: Object) {
