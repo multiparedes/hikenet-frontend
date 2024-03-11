@@ -6,7 +6,7 @@
           {{ logging ? $t("auth.login") : $t("auth.register") }}
         </h1>
 
-        <Form :validation="formSchema" @submit="submitAuth">
+        <FormWrapper :validation="FormWrapperSchema" @submit="submitAuth">
           <InputWrapper
             name="username"
             :label="$t('username')"
@@ -47,7 +47,7 @@
           <Button class="w-full mt-2" :loading="pendingAuth">
             {{ logging ? $t("auth.login") : $t("auth.register") }}
           </Button>
-        </Form>
+        </FormWrapper>
 
         <div v-if="logging" class="mt-4 flex gap-1 text-center text-sm">
           <p>{{ $t("auth.new_user") }}</p>
@@ -70,7 +70,7 @@
 <script setup lang="ts">
 import { useToast } from "@/components/ui/toast/use-toast";
 import * as z from "zod";
-import { InputWrapper, Form } from "~/components/forms";
+import { InputWrapper, FormWrapper } from "~/components/forms";
 
 definePageMeta({
   middleware: "user-guest",
@@ -86,7 +86,7 @@ const logging = computed(() => {
   return !(route.query && "signup" in route.query);
 });
 
-const formSchema = computed(() => {
+const FormWrapperSchema = computed(() => {
   if (logging.value) {
     return {
       username: z.string().trim().min(4).max(50),

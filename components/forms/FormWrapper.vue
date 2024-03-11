@@ -1,16 +1,21 @@
 <template>
-  <form type="form" v-auto-animate @submit.prevent="onSubmit">
+  <Form
+    v-auto-animate
+    :validation-schema="formSchema"
+    :initial-values="initial ?? {}"
+    @submit="onSubmit"
+  >
     <slot></slot>
-  </form>
+  </Form>
 </template>
 
 <script setup lang="ts">
-import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 
 interface Props {
-  validation: object;
+  initial?: object;
+  validation?: object;
 }
 
 const props = defineProps<Props>();
@@ -20,14 +25,10 @@ const emit = defineEmits<{
 }>();
 
 const formSchema = computed(() => {
-  return toTypedSchema(z.object({ ...props?.validation }));
+  return toTypedSchema(z.object({ ...(props?.validation ?? {}) }));
 });
 
-const { handleSubmit } = useForm({
-  validationSchema: formSchema,
-});
-
-const onSubmit = handleSubmit((values) => {
+function onSubmit(values: object = {}) {
   emit("submit", values);
-});
+}
 </script>

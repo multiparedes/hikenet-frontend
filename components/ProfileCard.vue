@@ -5,7 +5,32 @@
       :title="$t('edit_profile_title')"
       :sub-title="$t('edit_profile_subtitle')"
     >
-      <form></form>
+      <FormWrapper :initial="formValues" :validation="validationSchema">
+        <InputWrapper
+          name="username"
+          :label="$t('username')"
+          :placeholder="`${$t('username')}...`"
+          icon="user"
+        />
+        <div class="grid grid-cols-2 gap-x-4">
+          <InputWrapper
+            name="firstName"
+            :label="$t('name')"
+            :placeholder="`${$t('name')}...`"
+          />
+          <InputWrapper
+            name="lastName"
+            :label="$t('last_name')"
+            :placeholder="`${$t('last_name')}...`"
+          />
+        </div>
+        <InputWrapper
+          type="email"
+          name="email"
+          :label="$t('email')"
+          :placeholder="`${$t('email')}...`"
+        />
+      </FormWrapper>
     </Modal>
 
     <Card class="flex flex-col items-center relative">
@@ -69,6 +94,9 @@
 </template>
 
 <script setup lang="ts">
+import { InputWrapper, FormWrapper } from "~/components/forms";
+import * as z from "zod";
+
 import uniqolor from "uniqolor";
 
 const editModal = ref(false);
@@ -82,6 +110,21 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+});
+
+const formValues = ref({
+  username: props.user.username,
+  firstName: props.user.firstName,
+  lastName: props.user.lastName,
+  email: props.user.email,
+});
+
+const validationSchema = ref({
+  username: z.string().trim().min(4).max(50),
+  firstName: z.string().trim().min(4).max(50),
+  lastName: z.string().max(100),
+  email: z.string().trim().email(),
+  password: z.string().trim().min(4),
 });
 
 const isOwn = computed(() => {
