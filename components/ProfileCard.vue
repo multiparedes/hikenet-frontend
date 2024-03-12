@@ -4,32 +4,51 @@
       v-model="editModal"
       :title="$t('edit_profile_title')"
       :sub-title="$t('edit_profile_subtitle')"
+      :actions="false"
     >
-      <FormWrapper :initial="formValues" :validation="validationSchema">
+      <FormWrapper
+        ref="updateModal"
+        :initial="formValues"
+        :validation="validationSchema"
+        @submit="handleSubmit"
+      >
         <InputWrapper
           name="username"
           :label="$t('username')"
           :placeholder="`${$t('username')}...`"
           icon="user"
         />
+
         <div class="grid grid-cols-2 gap-x-4">
           <InputWrapper
             name="firstName"
             :label="$t('name')"
             :placeholder="`${$t('name')}...`"
           />
+
           <InputWrapper
             name="lastName"
             :label="$t('last_name')"
             :placeholder="`${$t('last_name')}...`"
           />
         </div>
+
         <InputWrapper
           type="email"
           name="email"
           :label="$t('email')"
           :placeholder="`${$t('email')}...`"
         />
+
+        <TextAreaWrapper
+          name="description"
+          :label="$t('description')"
+          :placeholder="`${$t('description')}...`"
+        />
+
+        <Button class="w-full mt-2" :loading="pendingData">
+          {{ $t("save") }}
+        </Button>
       </FormWrapper>
     </Modal>
 
@@ -96,10 +115,17 @@
 <script setup lang="ts">
 import { InputWrapper, FormWrapper } from "~/components/forms";
 import * as z from "zod";
+import { useToast } from "./ui/toast";
 
 import uniqolor from "uniqolor";
+import TextAreaWrapper from "./forms/TextAreaWrapper.vue";
+
+const api = useApi();
+const { toast } = useToast();
 
 const editModal = ref(false);
+const updateModal = ref(null);
+const pendingData = ref(false);
 
 const props = defineProps({
   user: {
@@ -112,11 +138,16 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits<{
+  (e: "updated", value: object): void;
+}>();
+
 const formValues = ref({
   username: props.user.username,
   firstName: props.user.firstName,
   lastName: props.user.lastName,
   email: props.user.email,
+  description: props.profile.description,
 });
 
 const validationSchema = ref({
@@ -124,7 +155,7 @@ const validationSchema = ref({
   firstName: z.string().trim().min(4).max(50),
   lastName: z.string().max(100),
   email: z.string().trim().email(),
-  password: z.string().trim().min(4),
+  description: z.string(),
 });
 
 const isOwn = computed(() => {
@@ -153,7 +184,42 @@ function getUserColors(userId: string) {
   return [];
 }
 
-onMounted(() => {
-  console.log(isOwn.value);
-});
+async function handleSubmit(values: object) {
+  pendingData.value = true;
+
+  const { data: newU, error: errorU } = await api.patch(
+    `/users/${props.user.username}`,
+    {
+      body: values,
+    }
+  );
+
+  if (errorU.value) {
+    toast({
+      title: "Error during action",
+      description: `Error at ${errorU.value}`,
+    });
+  }
+
+  const { data: newP, error: errorP } = await api.patch(
+    `/profile/${props.user.username}`,
+    {
+      body: values,
+    }
+  );
+
+  if (errorP.value) {
+    toast({
+      title: "Error during action",
+      description: `Error at ${errorP.value}`,
+    });
+  }
+
+  emit("updated", { user: newU.value, profile: newP.value });
+
+  pendingData.value = false;
+
+  formValues.value = values;
+  editModal.value = false;
+}
 </script>

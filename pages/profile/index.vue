@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="pageLoading" />
   <section v-else class="grid md:grid-cols-2 grid-cols-1 gap-4">
-    <ProfileCard :user="user" :profile="profile" />
+    <ProfileCard :user="user" :profile="profile" @updated="updateUserData" />
   </section>
 </template>
 
@@ -20,30 +20,21 @@ const user = ref({});
 const profile = ref({});
 const pageLoading = ref(true);
 
-const isOwn = computed(() => {
-  const queryParam = useRoute().query?.id;
-
-  return !queryParam || queryParam === useAuth()?.user?.username;
-});
-
-watch(route.query?.id, () => {
+watch(useRoute().query?.id || "", () => {
   fetchData();
 });
 
 async function fetchData() {
-  pageLoading.value = true;
-  if (isOwn.value) {
-    user.value = auth.user;
-  } else {
-    const { data, error } = await api.get(`/users/${route.query?.id}`);
+  const { data, error } = await api.get(
+    `/users/${route.query?.id ?? auth.user.username}`
+  );
 
-    if (error.value) {
-      useToast().error({ title: "error ocurred" });
-      return;
-    }
-
-    user.value = data.value;
+  if (error.value) {
+    useToast().error({ title: "error ocurred" });
+    return;
   }
+
+  user.value = data.value;
 
   const { data: profileData, error: errorProfile } = await api.get(
     `/profile/${user.value.username}`
@@ -63,4 +54,9 @@ async function fetchData() {
 }
 
 fetchData();
+
+function updateUserData(newValues) {
+  user.value = newValues.user;
+  profile.value = newValues.profile;
+}
 </script>

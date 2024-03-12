@@ -16,10 +16,16 @@
       </div>
       <DialogFooter class="px-4 py-2 pt-0 flex gap-2">
         <slot name="actions">
-          <Button variant="destructive" @click="internalModal = false">
+          <Button
+            v-if="actions"
+            variant="destructive"
+            @click="internalModal = false"
+          >
             {{ $t("close") }}
           </Button>
-          <Button type="submit" @click="handleSave"> {{ $t("save") }} </Button>
+          <Button v-if="actions" type="submit" @click="handleSave">
+            {{ $t("save") }}
+          </Button>
         </slot>
       </DialogFooter>
     </DialogContent>
@@ -43,9 +49,12 @@ interface Props {
   modelValue: boolean;
   title?: string;
   subTitle?: string;
+  actions?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  actions: true,
+});
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: Boolean): void;

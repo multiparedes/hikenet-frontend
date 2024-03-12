@@ -39,5 +39,6 @@
   "edit": "Edit",
   "follow": "Follow",
   "message": "Message",
-  "no_description_yet": "This user dosen't have a description yet"
+  "no_description_yet": "This user dosen't have a description yet",
+  "description": "Description"
 }

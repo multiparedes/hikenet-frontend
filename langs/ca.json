@@ -39,5 +39,6 @@
   "edit": "Edita",
   "follow": "Seguir",
   "message": "Missatge",
-  "no_description_yet": "Aquest usuari encara no té una descripció"
+  "no_description_yet": "Aquest usuari encara no té una descripció",
+  "description": "Descripció"
 }
