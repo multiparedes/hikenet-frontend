@@ -7,42 +7,19 @@
         </h1>
 
         <FormWrapper :validation="FormWrapperSchema" @submit="submitAuth">
-          <InputWrapper
-            name="username"
-            :label="$t('username')"
-            :placeholder="`${$t('username')}...`"
-            icon="user"
-          />
+          <InputWrapper name="username" :label="$t('username')" :placeholder="`${$t('username')}...`" icon="user" />
 
           <div v-if="!logging">
             <div class="grid grid-cols-2 gap-x-4">
-              <InputWrapper
-                name="firstName"
-                :label="$t('name')"
-                :placeholder="`${$t('name')}...`"
-              />
-              <InputWrapper
-                name="lastName"
-                :label="$t('last_name')"
-                :placeholder="`${$t('last_name')}...`"
-              />
+              <InputWrapper name="firstName" :label="$t('name')" :placeholder="`${$t('name')}...`" />
+              <InputWrapper name="lastName" :label="$t('last_name')" :placeholder="`${$t('last_name')}...`" />
               <div class="col-span-2">
-                <InputWrapper
-                  type="email"
-                  name="email"
-                  :label="$t('email')"
-                  :placeholder="`${$t('email')}...`"
-                />
+                <InputWrapper type="email" name="email" :label="$t('email')" :placeholder="`${$t('email')}...`" />
               </div>
             </div>
           </div>
-          <InputWrapper
-            type="password"
-            name="password"
-            icon="password"
-            :label="$t('password')"
-            :placeholder="`${$t('password')}...`"
-          />
+          <InputWrapper type="password" name="password" icon="password" :label="$t('password')"
+            :placeholder="`${$t('password')}...`" />
 
           <Button class="w-full mt-2" :loading="pendingAuth">
             {{ logging ? $t("auth.login") : $t("auth.register") }}
@@ -137,9 +114,8 @@ async function submitAuth(values: Object) {
     await auth.setUserToken(user.access_token);
 
     toast({
-      title: `${user?.username} ${
-        logging.value ? "inició sesión" : "se registró"
-      } correctamente`,
+      title: `${user?.username} ${logging.value ? "inició sesión" : "se registró"
+        } correctamente`,
       variant: "success",
     });
 

@@ -35,6 +35,10 @@
     </div>
 
     <div class="flex" v-else>
+      <Modal v-model="showSearchModal" :actions="false">
+        <SearchUsers @select="showSearchModal = false" />
+      </Modal>
+
       <Menubar>
         <Button variant="link" class="-mr-1">{{ $t("navbar.publish") }}</Button>
 
@@ -44,7 +48,7 @@
             <MenubarItem @click="navigateTo('/profile')">{{
       $t("navbar.edit_profile")
     }}</MenubarItem>
-            <MenubarItem>{{ $t("navbar.search_friends") }}</MenubarItem>
+            <MenubarItem @click="showSearchModal = true">{{ $t("navbar.search_friends") }}</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
 
@@ -75,6 +79,8 @@
 
 <script setup lang="ts">
 const { availableLocales, setLocale } = useI18n();
+
+const showSearchModal = ref(false)
 
 async function logoutUser() {
   useAuth().logout();

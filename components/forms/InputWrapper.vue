@@ -3,12 +3,7 @@
     <FormItem>
       <FormLabel>{{ label }}</FormLabel>
       <FormControl>
-        <Input
-          v-bind="componentField"
-          :type="type"
-          :placeholder="placeholder"
-          :icon="icon"
-        />
+        <Input v-bind="componentField" :type="type" :placeholder="placeholder" :icon="icon" @update="propagateEmit" />
       </FormControl>
       <FormDescription v-if="description">{{ description }}</FormDescription>
       <FormMessage />
@@ -26,7 +21,13 @@ interface Props {
   description?: string;
 }
 
+const emit = defineEmits<{
+  (e: 'update', value: string): void
+}>()
+
 withDefaults(defineProps<Props>(), {
   type: "text",
 });
+
+function propagateEmit(val: any) { emit('update', val) } 
 </script>

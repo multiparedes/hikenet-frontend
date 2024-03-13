@@ -1,8 +1,6 @@
 <template>
   <Dialog v-model:open="internalModal">
-    <DialogContent
-      class="sm:max-w-[425px] grid-rows-[auto_minmax(0,1fr)_auto] p-0 max-h-[90dvh]"
-    >
+    <DialogContent class="sm:max-w-[425px] grid-rows-[auto_minmax(0,1fr)_auto] p-0 max-h-[90dvh]">
       <slot name="title">
         <DialogHeader class="px-4 py-2 pb-0" v-if="title || subTitle">
           <DialogTitle v-if="title">{{ title }}</DialogTitle>
@@ -16,11 +14,7 @@
       </div>
       <DialogFooter class="px-4 py-2 pt-0 flex gap-2">
         <slot name="actions">
-          <Button
-            v-if="actions"
-            variant="destructive"
-            @click="internalModal = false"
-          >
+          <Button v-if="actions" variant="destructive" @click="internalModal = false">
             {{ $t("close") }}
           </Button>
           <Button v-if="actions" type="submit" @click="handleSave">
