@@ -58,7 +58,7 @@ function updateUserData(newValues) {
 }
 
 function updateFollow(newUser) {
-  debugger
+
   user.value.followers.push(newUser)
 }
 

@@ -34,19 +34,32 @@
                 <div class="flex flex-col">
                     <span class="text-slate-400 text-sm"> @{{ user.username }} </span>
                     <span class="text-lg">{{ user.fullName }}</span>
-                    <div>
-                        <span class="bg-secondary-500 px-2 py-1 text-white rounded-md text-sm mr-2">
-                            {{ user.isAdmin ? "Admin" : "User" }}
-                        </span>
-                        <span>{{ $t("joined") }} {{ formattedJoinDate }}</span>
-                    </div>
+
                 </div>
 
-                <div class="flex gap-4 justify-center">
-                    <Button variant="outline">{{ $t("friends") }}: {{ user.followers.length }}</Button>
-                    <Button v-if="isOwn" icon="fluent:edit-12-regular" @click="editModal = true">{{ $t("edit")
-                        }}</Button>
-                    <div v-else class="flex gap-4">
+                <p class="text-sm px-8">
+                    {{ profile?.description ?? $t("no_description_yet") }}
+                </p>
+
+                <div class="md:flex grid grid-cols-1 gap-x-0 md:gap-x-4 gap-y-4 justify-center">
+                    <HoverCard>
+                        <HoverCardTrigger as-child>
+                            <Button class="col-span-2" variant="outline">{{ $t("friends") }}: {{ user.followers.length
+                                }}</Button>
+                        </HoverCardTrigger>
+                        <HoverCardContent v-if="user.followers.length > 0">
+                            <div class="text-center">
+                                <p v-for="f in user.followers">
+                                    {{ f.fullName }} (<span class="text-primary-700">@{{ f.username }}</span>)
+                                </p>
+                            </div>
+                        </HoverCardContent>
+                    </HoverCard>
+
+                    <Button v-if="isOwn" icon="fluent:edit-12-regular" @click="editModal = true">{{
+            $t("edit")
+        }}</Button>
+                    <div v-else class="flex md:gap-x-4 gap-y-4 md:flex-row flex-col">
                         <Button variant="outline" icon="fluent:person-add-24-regular" icon-start @click="handleFollow">
                             {{ followMessage }}
                         </Button>
@@ -56,9 +69,13 @@
                     </div>
                 </div>
 
-                <p class="text-sm px-8">
-                    {{ profile?.description ?? $t("no_description_yet") }}
-                </p>
+                <div>
+                    <span class="bg-secondary-500 px-2 py-1 text-white rounded-md text-sm mr-2">
+                        {{ user.isAdmin ? "Admin" : "User" }}
+                    </span>
+                    <span>{{ $t("joined") }} {{ formattedJoinDate }}</span>
+                </div>
+
             </div>
         </Card>
     </div>
