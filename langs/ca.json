@@ -40,5 +40,7 @@
   "follow": "Seguir",
   "message": "Missatge",
   "no_description_yet": "Aquest usuari encara no té una descripció",
-  "description": "Descripció"
+  "description": "Descripció",
+  "unfollow": "Deixar de seguir",
+  "no_results": "No s'han trobat resultats"
 }

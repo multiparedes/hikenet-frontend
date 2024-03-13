@@ -1,7 +1,8 @@
 <template>
   <Loader v-if="pageLoading" />
   <section v-else class="grid md:grid-cols-2 grid-cols-1 gap-4">
-    <ProfileCard :user="user" :profile="profile" @updated="updateUserData" />
+    <ProfileCard :user="user" :profile="profile" @updated="updateUserData" @follow="updateFollow"
+      @unfollow="updateUnfollow" />
   </section>
 </template>
 
@@ -20,8 +21,9 @@ const profile = ref({});
 const pageLoading = ref(true);
 
 async function fetchData() {
+  console.log(route.params)
   const { data, error } = await api.get(
-    `/users/${route.params?.username}`
+    `/users/${route.params?.username[0]}`
   );
 
   if (error.value) {
@@ -51,7 +53,17 @@ async function fetchData() {
 fetchData();
 
 function updateUserData(newValues) {
-  user.value = newValues.user;
+  user.value = { ...user.value, ...newValues.user };
   profile.value = newValues.profile;
 }
+
+function updateFollow(newUser) {
+  debugger
+  user.value.followers.push(newUser)
+}
+
+function updateUnfollow(oldUser) {
+  user.value.followers = user.value.followers.filter((f) => f.id !== oldUser.id);
+}
+
 </script>

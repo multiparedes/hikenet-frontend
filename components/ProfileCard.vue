@@ -3,16 +3,13 @@
         <Modal v-model="editModal" :title="$t('edit_profile_title')" :sub-title="$t('edit_profile_subtitle')"
             :actions="false">
             <FormWrapper ref="updateModal" :initial="formValues" :validation="validationSchema" @submit="handleSubmit">
-                <InputWrapper name="username" :label="$t('username')" :placeholder="`${$t('username')}...`"
-                    icon="user" />
-
+                <InputWrapper type="email" name="email" :label="$t('email')" :placeholder="`${$t('email')}...`" />
                 <div class="grid grid-cols-2 gap-x-4">
                     <InputWrapper name="firstName" :label="$t('name')" :placeholder="`${$t('name')}...`" />
 
                     <InputWrapper name="lastName" :label="$t('last_name')" :placeholder="`${$t('last_name')}...`" />
                 </div>
 
-                <InputWrapper type="email" name="email" :label="$t('email')" :placeholder="`${$t('email')}...`" />
 
                 <TextAreaWrapper name="description" :label="$t('description')"
                     :placeholder="`${$t('description')}...`" />
@@ -46,12 +43,12 @@
                 </div>
 
                 <div class="flex gap-4 justify-center">
-                    <Button variant="outline">{{ $t("friends") }}: {{ user.friends ?? 0 }}</Button>
+                    <Button variant="outline">{{ $t("friends") }}: {{ user.followers.length }}</Button>
                     <Button v-if="isOwn" icon="fluent:edit-12-regular" @click="editModal = true">{{ $t("edit")
                         }}</Button>
                     <div v-else class="flex gap-4">
-                        <Button variant="outline" icon="fluent:person-add-24-regular" icon-start>
-                            {{ $t("follow") }}
+                        <Button variant="outline" icon="fluent:person-add-24-regular" icon-start @click="handleFollow">
+                            {{ followMessage }}
                         </Button>
                         <Button icon="fluent:note-add-16-regular" icon-start>{{
             $t("message")
@@ -77,6 +74,8 @@ import TextAreaWrapper from "./forms/TextAreaWrapper.vue";
 
 const api = useApi();
 const { toast } = useToast();
+const route = useRoute()
+const { t } = useI18n()
 
 const editModal = ref(false);
 const updateModal = ref(null);
@@ -94,7 +93,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-    (e: "updated", value: object): void;
+    (e: "updated" | "follow" | "unfollow", value: object): void;
 }>();
 
 const formValues = ref({
@@ -106,7 +105,6 @@ const formValues = ref({
 });
 
 const validationSchema = ref({
-    username: z.string().trim().min(4).max(50),
     firstName: z.string().trim().min(4).max(50),
     lastName: z.string().max(100),
     email: z.string().trim().email(),
@@ -114,12 +112,18 @@ const validationSchema = ref({
 });
 
 const isOwn = computed(() => {
-    const queryParam = useRoute().params?.username[0];
-
-    console.log(useRoute().params.username)
+    const queryParam = route.params?.username[0];
 
     return queryParam === useAuth()?.user?.username;
 });
+
+const isFollowing = computed(() => {
+    return props.user.followers.find((f: any) => f.username === useAuth().user?.username)
+})
+
+const followMessage = computed(() => {
+    return isFollowing.value ? t('unfollow') : t('follow')
+})
 
 const formattedJoinDate = computed(() => {
     const date = new Date(props.user.createdAt);
@@ -179,4 +183,23 @@ async function handleSubmit(values: any) {
     formValues.value = values;
     editModal.value = false;
 }
+
+async function handleFollow() {
+    const { data, error } = await api.post(`/friends/${isFollowing.value ? 'unfollow' : 'follow'}/${props.user.username}?from=${useAuth().user?.username}`)
+
+    if (error.value) {
+        toast({
+            description: data.value?.message,
+            variant: 'destructive'
+        })
+    }
+
+    toast({
+        description: data.value?.message,
+        variant: 'success'
+    })
+
+    emit(isFollowing.value ? 'unfollow' : 'follow', useAuth().user as any)
+}
+
 </script>

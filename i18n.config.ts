@@ -4,7 +4,7 @@ import ca from "./langs/ca.json";
 
 export default defineI18nConfig(() => ({
   legacy: false,
-  locale: "en",
+  locale: "es",
   fallbackLocale: "es",
   globalInjection: true,
   messages: {

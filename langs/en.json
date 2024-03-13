@@ -40,5 +40,7 @@
   "follow": "Follow",
   "message": "Message",
   "no_description_yet": "This user dosen't have a description yet",
-  "description": "Description"
+  "description": "Description",
+  "unfollow": "Unfollow",
+  "no_results": "No results found"
 }
