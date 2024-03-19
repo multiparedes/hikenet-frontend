@@ -43,5 +43,10 @@
   "description": "Description",
   "unfollow": "Unfollow",
   "no_results": "No results found",
-  "write_a_description": "Write a description for the excursion ..."
+  "write_a_description": "Write a description for the excursion ...",
+  "difficulty": "Difficulty",
+  "upload_hike_map": "Already have a map recorded ?",
+  "uplaod": "Upload",
+  "difficulty_explainer": "Range between 0 (very easy) and 10 (very difficult).",
+  "move": "Move"
 }

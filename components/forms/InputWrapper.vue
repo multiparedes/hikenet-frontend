@@ -3,13 +3,8 @@
     <FormItem>
       <FormLabel>{{ label }}</FormLabel>
       <FormControl>
-        <Input
-          v-bind="componentField"
-          :type="type"
-          :placeholder="placeholder ?? label + ' ...'"
-          :icon="icon"
-          @update="propagateEmit"
-        />
+        <Input v-bind="componentField" :type="type" :placeholder="placeholder ?? label + '...'" :icon="icon"
+          @update="propagateEmit" />
       </FormControl>
       <FormDescription v-if="description">{{ description }}</FormDescription>
       <FormMessage />

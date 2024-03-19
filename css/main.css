@@ -3,40 +3,40 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Kollektif';
-    src: url('/font/Kollektif.ttf') format('truetype'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-family: "Kollektif";
+  src: url("/font/Kollektif.ttf") format("truetype"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 @font-face {
-    font-family: 'Kollektif';
-    src: url('/font/Kollektif-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+  font-family: "Kollektif";
+  src: url("/font/Kollektif-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Kollektif';
-    src: url('/font/Kollektif-BoldItalic.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
+  font-family: "Kollektif";
+  src: url("/font/Kollektif-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Kollektif';
-    src: url('/font/Kollektif-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
+  font-family: "Kollektif";
+  src: url("/font/Kollektif-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
 }
 
 html {
-    font-family: 'Kollektif', sans-serif;
+  font-family: "Kollektif", sans-serif;
 }
 
 @layer components {
-    .text-gradient {
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        -moz-text-fill-color: transparent;
-      }
+  .text-gradient {
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
   }
+}

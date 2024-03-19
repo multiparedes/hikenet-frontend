@@ -7,7 +7,6 @@ const useApi = () => {
     const requestOptions = {
       ...options,
       baseURL: config.public.apiPath as string,
-      credentials: "include",
       method: method.toUpperCase(),
       headers: {
         Authorization: token ?? "",

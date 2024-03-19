@@ -43,5 +43,10 @@
   "description": "Descripció",
   "unfollow": "Deixar de seguir",
   "no_results": "No s'han trobat resultats",
-  "write_a_description": "Escriu una descripció de l'excursió..."
+  "write_a_description": "Escriu una descripció de l'excursió...",
+  "difficulty": "Dificultat",
+  "upload_hike_map": "Ja té un mapa gravat?",
+  "uplaod": "Penjar",
+  "difficulty_explainer": "Interval entre 0 (molt fàcil) i 10 (molt difícil).",
+  "move": "Mou-te"
 }

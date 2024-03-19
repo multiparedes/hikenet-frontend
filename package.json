@@ -28,6 +28,7 @@
     "@tresjs/post-processing": "^0.7.0",
     "@types/three": "^0.161.2",
     "@vee-validate/zod": "^4.12.5",
+    "@vue-leaflet/vue-leaflet": "^0.10.1",
     "@vueuse/core": "^10.8.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.3.2",
     "@nuxtjs/i18n": "^8.1.1",
+    "@types/leaflet": "^1.9.8",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "autoprefixer": "^10.4.17",

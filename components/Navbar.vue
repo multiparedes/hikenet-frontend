@@ -40,7 +40,7 @@
       </Modal>
 
       <Menubar>
-        <Button variant="link" class="-mr-1">{{ $t("navbar.publish") }}</Button>
+        <Button link="/hike" variant="link" class="-mr-1">{{ $t("navbar.publish") }}</Button>
 
         <MenubarMenu>
           <MenubarTrigger>{{ $t("navbar.social") }}</MenubarTrigger>

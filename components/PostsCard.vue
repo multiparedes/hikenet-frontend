@@ -5,11 +5,7 @@
     </p>
 
     <div v-else class="flex flex-col gap-y-2">
-      <Card
-        v-for="post in posts"
-        :key="post.id"
-        class="override overflow-clip flex gap-x-2 relative pb-2"
-      >
+      <Card v-for="post in posts" :key="post.id" class="override overflow-clip flex gap-x-2 relative pb-2">
         <img class="rounded-r-lg w-1/3" src="/fuji.jpg" alt="" />
 
         <div class="py-1 w-full pr-1">
@@ -26,12 +22,10 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
-  posts: {
-    type: Array,
-    required: true,
-  },
-});
+
+defineProps<{
+  posts: Record<string, any>[];
+}>();
 </script>
 
 <style scoped>
