@@ -42,5 +42,6 @@
   "no_description_yet": "This user dosen't have a description yet",
   "description": "Description",
   "unfollow": "Unfollow",
-  "no_results": "No results found"
+  "no_results": "No results found",
+  "write_a_description": "Write a description for the excursion ..."
 }
