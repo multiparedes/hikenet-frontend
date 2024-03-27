@@ -48,5 +48,6 @@
   "upload_hike_map": "Already have a map recorded ?",
   "uplaod": "Upload",
   "difficulty_explainer": "Range between 0 (very easy) and 10 (very difficult).",
-  "move": "Move"
+  "move": "Move",
+  "delete": "Delete"
 }

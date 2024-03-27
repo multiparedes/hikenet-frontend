@@ -7,7 +7,7 @@
         icon="fluent:search-16-regular"
         :placeholder="$t('search_a_location') + '...'"
         name="search"
-        @update="deboundedSearch"
+        @update="debouncedSearch"
       />
 
       <div class="flex gap-x-2 items-center md:justify-end justify-between">
@@ -27,14 +27,24 @@
           editing ? 'fluent:hand-draw-16-regular' : 'fluent:pin-12-regular'
         "
         class="absolute bottom-1 left-1 z-10"
+        :variant="editing ? 'outline' : 'default'"
         @click.stop="editing = !editing"
         >{{ editing ? $t("move") : $t("edit") }}</Button
       >
     </div>
+    <div
+      ref="popupContent"
+      :style="{ display: popupVisible ? 'block' : 'none' }"
+    >
+      <Button variant="destructive" class="mr-2" @click="deleteMarker">{{
+        $t("delete")
+      }}</Button>
+      <Button>{{ $t("edit") }}</Button>
+    </div>
   </Card>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -48,7 +58,25 @@ const baseNominatim = "https://nominatim.openstreetmap.org/search.php?";
 const searcher = ref("");
 const editing = ref(false);
 
-const deboundedSearch = debounce(nominatimResolve, 500);
+const popMarker = ref(null);
+
+const popupContent = ref(null);
+const popupVisible = ref(false); // Reactive variable to control popup visibility
+
+const debouncedSearch = debounce(nominatimResolve, 500);
+const markers = ref(null);
+
+watch(editing, () => {
+  if (editing.value) {
+    map.value.dragging.disable();
+    map.value.boxZoom.disable();
+    map.value.scrollWheelZoom.disable();
+  } else {
+    map.value.dragging.enable();
+    map.value.boxZoom.enable();
+    map.value.scrollWheelZoom.enable();
+  }
+});
 
 onMounted(() => {
   map.value = L.map("map", {
@@ -68,18 +96,22 @@ onMounted(() => {
   getUserPosition();
 
   // a layer group, used here like a container for markers
-  var markersGroup = L.layerGroup();
-  map.value.addLayer(markersGroup);
+  markers.value = L.layerGroup();
+  map.value.addLayer(markers.value);
 
   map.value.on("click", function (e) {
-    // get the count of currently displayed markers
-    var markersCount = markersGroup.getLayers().length;
-
     if (editing.value) {
-      var marker = L.marker(e.latlng).addTo(markersGroup);
+      var marker = L.marker(e.latlng).addTo(toRaw(markers.value));
+      marker.bindPopup(popupContent.value);
+      popupVisible.value = true;
+
       return;
     }
     return;
+  });
+
+  map.value.on("popupopen", function (e) {
+    popMarker.value = e.popup._source;
   });
 });
 
@@ -91,7 +123,7 @@ function getUserPosition() {
   }
 }
 
-async function nominatimResolve(search: string) {
+async function nominatimResolve(search) {
   if (!search) return;
 
   const { data, error } = await api.get(baseNominatim, {
@@ -101,22 +133,20 @@ async function nominatimResolve(search: string) {
     },
   });
 
-  if (error.value) {
+  if (error.value && !!point) {
     return;
   }
 
   const point = [data.value.at(0).lat, data.value.at(0).lon];
   map.value.flyTo(point, 15);
 }
+
+function deleteMarker() {
+  markers.value.removeLayer(popMarker.value);
+}
 </script>
 
 <style>
-.leaflet-container,
-.leaflet-pane,
-.leaflet-control {
-  @apply z-[5] !important;
-}
-
 .override {
   @apply px-2 !important;
 }

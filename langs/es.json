@@ -48,5 +48,6 @@
   "upload_hike_map": "¿Ya tienes un mapa grabado?",
   "uplaod": "Subir",
   "difficulty_explainer": "Rango entre 0 (muy fácil) y 10 (muy difícil).",
-  "move": "Mover"
+  "move": "Mover",
+  "delete": "Borrar"
 }

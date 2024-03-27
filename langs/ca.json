@@ -48,5 +48,6 @@
   "upload_hike_map": "Ja té un mapa gravat?",
   "uplaod": "Penjar",
   "difficulty_explainer": "Interval entre 0 (molt fàcil) i 10 (molt difícil).",
-  "move": "Mou-te"
+  "move": "Mou-te",
+  "delete": "Suprimeix"
 }
