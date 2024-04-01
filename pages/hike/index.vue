@@ -80,7 +80,7 @@ async function createHike(values) {
   waitingQuery.value = true;
 
   const { data, error } = await api.post(`posts/${useAuth()?.user?.username}`, {
-    body: { ...values, location: getCenter(values.contents) },
+    body: { ...values, location: await getCenter(values.contents) },
   });
 
   if (error.value) {
@@ -95,14 +95,15 @@ async function createHike(values) {
 
   toast({
     title: t("successfully_created_hike"),
+    variant: "success",
   });
 
-  await navigateTo("/hike/" + data.id);
+  await navigateTo("/hike/" + data.value.id);
 
   waitingQuery.value = false;
 }
 
-function getCenter(points) {
+async function getCenter(points) {
   if (!points || points.length === 0) {
     return null;
   }
@@ -113,6 +114,10 @@ function getCenter(points) {
   const avgLat = sumLat / points.length;
   const avgLng = sumLng / points.length;
 
-  return { lat: avgLat, lng: avgLng };
+  const { data, error } = await api.get(
+    `https://nominatim.openstreetmap.org/reverse?lat=${avgLat}&lon=${avgLng}&format=json`
+  );
+
+  return { lat: avgLat, lng: avgLng, resolved: data.value.address };
 }
 </script>

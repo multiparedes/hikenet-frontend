@@ -57,5 +57,9 @@
   "map_itinerary": "Mapa de itinerario",
   "generic_error": "Perdón, algo salió mal",
   "successfully_created_hike": "Escursión creada con éxito",
-  "try_again_later": "Vuelve a intentarlo más tarde"
+  "try_again_later": "Vuelve a intentarlo más tarde",
+  "no_posts_yet": "Este usuario aún no tiene ninguna publicación",
+  "by": "por",
+  "likes": "Gustos",
+  "comments": "Comentarios"
 }

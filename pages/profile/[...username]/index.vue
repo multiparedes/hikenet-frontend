@@ -50,7 +50,7 @@ async function fetchData() {
   }
 
   const { data: postsData, error: errorPosts } = await api.get(
-    `/posts/${user.value.username}`
+    `/posts/user/${user.value.username}`
   );
 
   if (errorPosts.value) {

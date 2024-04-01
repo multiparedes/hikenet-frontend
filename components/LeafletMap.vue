@@ -23,6 +23,7 @@
 
     <div id="map" class="h-[35em] rounded-md overflow-clip relative">
       <Button
+        type="button"
         :icon="
           editing ? 'fluent:hand-draw-16-regular' : 'fluent:pin-12-regular'
         "
@@ -34,17 +35,19 @@
     </div>
     <div
       ref="popupContent"
-      :style="{ display: popupVisible ? 'block' : 'none' }"
+      :style="{ display: popupVisible ? 'block ' : 'none' }"
     >
       <p class="text-center">
         {{ activePopoupContent }}
       </p>
 
       <div class="flex gap-2 w-full justify-center">
-        <Button variant="destructive" @click="deleteMarker">{{
+        <Button type="button" variant="destructive" @click="deleteMarker">{{
           $t("delete")
         }}</Button>
-        <Button @click="handleEditMarker">{{ $t("edit") }}</Button>
+        <Button type="button" @click="handleEditMarker">{{
+          $t("edit")
+        }}</Button>
       </div>
     </div>
 
@@ -130,6 +133,14 @@ watch(markers.value, () => {
   updateLines();
 });
 
+var baseIcon = L.icon({
+  iconUrl: "/base.svg",
+
+  iconSize: [40, 40], // size of the icon
+  iconAnchor: [20, 40], // point of the icon which will correspond to marker's location
+  popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
+});
+
 const activePopoupContent = computed(() => {
   return (
     markers.value.find((m) => m?.id === popMarker.value?._leaflet_id)
@@ -164,8 +175,12 @@ onMounted(() => {
 
   map.value.on("click", function (e) {
     if (editing.value) {
-      var marker = L.marker(e.latlng).addTo(toRaw(markersLayer.value));
-      marker.bindPopup(popupContent.value);
+      var marker = L.marker(e.latlng, { icon: baseIcon }).addTo(
+        toRaw(markersLayer.value)
+      );
+      marker.bindPopup(popupContent.value, {
+        maxWidth: "auto",
+      });
       markers.value.push({
         id: marker._leaflet_id,
         content: t("no_content"),
@@ -181,11 +196,20 @@ onMounted(() => {
   map.value.on("popupopen", function (e) {
     popMarker.value = e.popup._source;
     popupVisible.value = true;
+    e.popup.update();
   });
 
   pathLayer.value = L.layerGroup().addTo(toRaw(map.value));
 
-  // markers.value = props.modelValue;
+  // MAGIC TRICK!
+  L.Popup.prototype._animateZoom = function (e) {
+    if (!this._map) {
+      return;
+    }
+    var pos = this._map._latLngToNewLayerPoint(this._latlng, e.zoom, e.center),
+      anchor = this._getAnchor();
+    L.DomUtil.setPosition(this._container, pos.add(anchor));
+  };
 });
 
 function getUserPosition() {
@@ -216,6 +240,9 @@ async function nominatimResolve(search) {
 
 function deleteMarker() {
   markersLayer.value.removeLayer(popMarker.value);
+  markers.value = markers.value.filter(
+    (m) => m.id !== popMarker.value._leaflet_id
+  );
   updateLines();
 }
 
@@ -238,6 +265,7 @@ function updateMarker({ description }) {
 
   editMarkerModal.value = false;
 }
+
 function updateLines() {
   pathLayer.value.clearLayers();
   const pathCoords = connectTheDots(markersLayer.value);

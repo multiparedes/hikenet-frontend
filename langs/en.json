@@ -57,5 +57,9 @@
   "map_itinerary": "Itinerary map",
   "generic_error": "Sorry, something went wrong",
   "successfully_created_hike": "Hike successfully created",
-  "try_again_later": "Try again later"
+  "try_again_later": "Try again later",
+  "no_posts_yet": "This user doesn't have any posts yet",
+  "by": "by",
+  "likes": "Likes",
+  "comments": "Comments"
 }

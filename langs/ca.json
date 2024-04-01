@@ -57,5 +57,9 @@
   "map_itinerary": "Mapa itinerari",
   "generic_error": "Ho sentim, alguna cosa ha anat malament",
   "successfully_created_hike": "Excursió creada correctament",
-  "try_again_later": "Torna-ho a provar més tard"
+  "try_again_later": "Torna-ho a provar més tard",
+  "no_posts_yet": "Aquest usuari encara no té cap publicació",
+  "by": "per",
+  "likes": "M'agrada",
+  "comments": "Comentaris"
 }
