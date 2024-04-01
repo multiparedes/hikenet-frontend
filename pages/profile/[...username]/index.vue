@@ -28,7 +28,6 @@ const posts = ref([]);
 const pageLoading = ref(true);
 
 async function fetchData() {
-  console.log(route.params);
   const { data, error } = await api.get(`/users/${route.params?.username[0]}`);
 
   if (error.value) {

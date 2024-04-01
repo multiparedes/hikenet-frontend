@@ -47,7 +47,15 @@
   "difficulty": "Dificultat",
   "upload_hike_map": "Ja té un mapa gravat?",
   "uplaod": "Penjar",
-  "difficulty_explainer": "Interval entre 0 (molt fàcil) i 10 (molt difícil).",
+  "difficulty_explainer": "Interval entre 1 (molt fàcil) i 10 (molt difícil).",
   "move": "Mou-te",
-  "delete": "Suprimeix"
+  "delete": "Suprimeix",
+  "edit_marker": "Editeu la informació del marcador",
+  "search_a_location": "Cerca una ubicació",
+  "no_content": "Encara no hi ha contingut",
+  "create": "Crear",
+  "map_itinerary": "Mapa itinerari",
+  "generic_error": "Ho sentim, alguna cosa ha anat malament",
+  "successfully_created_hike": "Excursió creada correctament",
+  "try_again_later": "Torna-ho a provar més tard"
 }

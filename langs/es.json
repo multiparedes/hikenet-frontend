@@ -47,7 +47,15 @@
   "difficulty": "Dificultad",
   "upload_hike_map": "¿Ya tienes un mapa grabado?",
   "uplaod": "Subir",
-  "difficulty_explainer": "Rango entre 0 (muy fácil) y 10 (muy difícil).",
+  "difficulty_explainer": "Rango entre 1 (muy fácil) y 10 (muy difícil).",
   "move": "Mover",
-  "delete": "Borrar"
+  "delete": "Borrar",
+  "edit_marker": "Editar información del marcador",
+  "search_a_location": "Buscar una ubicación",
+  "no_content": "Aún no hay contenido",
+  "create": "Crear",
+  "map_itinerary": "Mapa de itinerario",
+  "generic_error": "Perdón, algo salió mal",
+  "successfully_created_hike": "Escursión creada con éxito",
+  "try_again_later": "Vuelve a intentarlo más tarde"
 }

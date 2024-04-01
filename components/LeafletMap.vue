@@ -36,24 +36,59 @@
       ref="popupContent"
       :style="{ display: popupVisible ? 'block' : 'none' }"
     >
-      <Button variant="destructive" class="mr-2" @click="deleteMarker">{{
-        $t("delete")
-      }}</Button>
-      <Button>{{ $t("edit") }}</Button>
+      <p class="text-center">
+        {{ activePopoupContent }}
+      </p>
+
+      <div class="flex gap-2 w-full justify-center">
+        <Button variant="destructive" @click="deleteMarker">{{
+          $t("delete")
+        }}</Button>
+        <Button @click="handleEditMarker">{{ $t("edit") }}</Button>
+      </div>
     </div>
+
+    <Modal
+      v-model="editMarkerModal"
+      :title="$t('edit_marker')"
+      :actions="false"
+    >
+      <FormWrapper
+        :initial="editForm"
+        :validation="validationSchema"
+        @submit="updateMarker"
+      >
+        <TextAreaWrapper name="description" />
+        <div class="mt-4 flex ml-auto gap-2 justify-end">
+          <Button
+            variant="destructive"
+            @click="editMarkerModal = !editMarkerModal"
+            >{{ $t("close") }}</Button
+          >
+          <Button type="submit">{{ $t("edit") }}</Button>
+        </div>
+      </FormWrapper>
+    </Modal>
   </Card>
 </template>
 
 <script setup>
+import colors from "tailwindcss/colors";
+
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import * as z from "zod";
+
+import { FormWrapper, TextAreaWrapper } from "~/components/forms";
 
 import { debounce } from "~/lib/utils";
 
 const api = useApi();
+const { t } = useI18n();
+const baseNominatim = "https://nominatim.openstreetmap.org/search.php?";
 
 const map = ref(null);
-const baseNominatim = "https://nominatim.openstreetmap.org/search.php?";
+const editMarkerModal = ref(false);
 
 const searcher = ref("");
 const editing = ref(false);
@@ -61,10 +96,23 @@ const editing = ref(false);
 const popMarker = ref(null);
 
 const popupContent = ref(null);
-const popupVisible = ref(false); // Reactive variable to control popup visibility
+const popupVisible = ref(false);
 
 const debouncedSearch = debounce(nominatimResolve, 500);
-const markers = ref(null);
+const markersLayer = ref(null);
+const markers = ref([]);
+const pathLayer = ref(null);
+
+const editForm = ref({});
+
+const props = defineProps({
+  modelValue: {
+    type: Array,
+    required: true,
+  },
+});
+
+const emit = defineEmits(["update:modelValue"]);
 
 watch(editing, () => {
   if (editing.value) {
@@ -76,6 +124,21 @@ watch(editing, () => {
     map.value.boxZoom.enable();
     map.value.scrollWheelZoom.enable();
   }
+});
+
+watch(markers.value, () => {
+  updateLines();
+});
+
+const activePopoupContent = computed(() => {
+  return (
+    markers.value.find((m) => m?.id === popMarker.value?._leaflet_id)
+      ?.content ?? ""
+  );
+});
+
+const validationSchema = ref({
+  description: z.string().trim().min(1),
 });
 
 onMounted(() => {
@@ -91,19 +154,24 @@ onMounted(() => {
     maxZoom: 17,
     attribution:
       'Map data: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors',
-  }).addTo(map.value);
+  }).addTo(toRaw(map.value));
 
   getUserPosition();
 
-  // a layer group, used here like a container for markers
-  markers.value = L.layerGroup();
-  map.value.addLayer(markers.value);
+  // a layer group, used here like a container for markersLayer
+  markersLayer.value = L.layerGroup();
+  map.value.addLayer(markersLayer.value);
 
   map.value.on("click", function (e) {
     if (editing.value) {
-      var marker = L.marker(e.latlng).addTo(toRaw(markers.value));
+      var marker = L.marker(e.latlng).addTo(toRaw(markersLayer.value));
       marker.bindPopup(popupContent.value);
-      popupVisible.value = true;
+      markers.value.push({
+        id: marker._leaflet_id,
+        content: t("no_content"),
+        lat: e.latlng.lat,
+        lng: e.latlng.lng,
+      });
 
       return;
     }
@@ -112,7 +180,12 @@ onMounted(() => {
 
   map.value.on("popupopen", function (e) {
     popMarker.value = e.popup._source;
+    popupVisible.value = true;
   });
+
+  pathLayer.value = L.layerGroup().addTo(toRaw(map.value));
+
+  // markers.value = props.modelValue;
 });
 
 function getUserPosition() {
@@ -142,7 +215,47 @@ async function nominatimResolve(search) {
 }
 
 function deleteMarker() {
-  markers.value.removeLayer(popMarker.value);
+  markersLayer.value.removeLayer(popMarker.value);
+  updateLines();
+}
+
+function handleEditMarker() {
+  editForm.value = { description: activePopoupContent.value };
+
+  editMarkerModal.value = true;
+}
+
+function updateMarker({ description }) {
+  if (popMarker.value) {
+    const markerIndex = markers.value.findIndex(
+      (marker) => marker.id === popMarker.value._leaflet_id
+    );
+
+    if (markerIndex !== -1) {
+      markers.value[markerIndex].content = description;
+    }
+  }
+
+  editMarkerModal.value = false;
+}
+function updateLines() {
+  pathLayer.value.clearLayers();
+  const pathCoords = connectTheDots(markersLayer.value);
+  L.polyline(pathCoords).addTo(toRaw(pathLayer.value));
+
+  emit("update:modelValue", markers.value);
+}
+
+function connectTheDots(data) {
+  const coords = [];
+  for (const layerId in data._layers) {
+    const layer = data._layers[layerId];
+    if (layer.getLatLng) {
+      const latLng = layer.getLatLng();
+      coords.push([latLng.lat, latLng.lng]);
+    }
+  }
+  return coords;
 }
 </script>
 
