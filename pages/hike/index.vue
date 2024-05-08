@@ -3,39 +3,26 @@
     <FormWrapper :validation="validationSchema" @submit="createHike">
       <div class="grid grid-cols-2 gap-x-2">
         <InputWrapper name="title" :label="$t('name')" />
-        <RangeWrapper
-          name="difficulty"
-          type="number"
-          :label="$t('difficulty')"
-          :min="1"
-          :max="10"
-          :description="$t('difficulty_explainer')"
-        />
+        <RangeWrapper name="difficulty" type="number" :label="$t('difficulty')" :min="1" :max="10"
+          :description="$t('difficulty_explainer')" />
 
         <div class="col-span-2">
-          <TextAreaWrapper
-            name="description"
-            :label="$t('description')"
-            :placeholder="$t('write_a_description')"
-          />
+          <TextAreaWrapper name="description" :label="$t('description')" :placeholder="$t('write_a_description')" />
         </div>
         <div class="col-span-2">
           <FormField v-slot="{ componentField }" name="contents">
             <FormLabel>{{ $t("map_itinerary") }}</FormLabel>
 
             <FormControl>
-              <LeafletMap
-                v-bind="componentField"
-                v-model="markers"
-              ></LeafletMap>
+              <LeafletMap v-bind="componentField" v-model="markers"></LeafletMap>
             </FormControl>
             <FormMessage />
           </FormField>
         </div>
-        <Images></Images>
+        <FileUpload v-model="images" class="mt-4"></FileUpload>
         <Button class="mt-4" type="submit" :loading="waitingQuery">{{
-          $t("create")
-        }}</Button>
+      $t("create")
+          }}</Button>
       </div>
     </FormWrapper>
   </section>
@@ -59,6 +46,7 @@ const { toast } = useToast();
 const waitingQuery = ref(false);
 
 const markers = ref([]);
+const images = ref([])
 
 const validationSchema = ref({
   title: z.string().trim().min(1),
@@ -80,7 +68,7 @@ async function createHike(values) {
   waitingQuery.value = true;
 
   const { data, error } = await api.post(`posts/${useAuth()?.user?.username}`, {
-    body: { ...values, location: await getCenter(values.contents) },
+    body: { ...values, location: await getCenter(values.contents), images },
   });
 
   if (error.value) {
