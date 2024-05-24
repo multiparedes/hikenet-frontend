@@ -7,19 +7,42 @@
         </h1>
 
         <FormWrapper :validation="FormWrapperSchema" @submit="submitAuth">
-          <InputWrapper name="username" :label="$t('username')" :placeholder="`${$t('username')}...`" icon="user" />
+          <InputWrapper
+            name="username"
+            :label="$t('username')"
+            :placeholder="`${$t('username')}...`"
+            icon="user"
+          />
 
           <div v-if="!logging">
             <div class="grid grid-cols-2 gap-x-4">
-              <InputWrapper name="firstName" :label="$t('name')" :placeholder="`${$t('name')}...`" />
-              <InputWrapper name="lastName" :label="$t('last_name')" :placeholder="`${$t('last_name')}...`" />
+              <InputWrapper
+                name="firstName"
+                :label="$t('name')"
+                :placeholder="`${$t('name')}...`"
+              />
+              <InputWrapper
+                name="lastName"
+                :label="$t('last_name')"
+                :placeholder="`${$t('last_name')}...`"
+              />
               <div class="col-span-2">
-                <InputWrapper type="email" name="email" :label="$t('email')" :placeholder="`${$t('email')}...`" />
+                <InputWrapper
+                  type="email"
+                  name="email"
+                  :label="$t('email')"
+                  :placeholder="`${$t('email')}...`"
+                />
               </div>
             </div>
           </div>
-          <InputWrapper type="password" name="password" icon="password" :label="$t('password')"
-            :placeholder="`${$t('password')}...`" />
+          <InputWrapper
+            type="password"
+            name="password"
+            icon="password"
+            :label="$t('password')"
+            :placeholder="`${$t('password')}...`"
+          />
 
           <Button class="w-full mt-2" :loading="pendingAuth">
             {{ logging ? $t("auth.login") : $t("auth.register") }}
@@ -39,12 +62,15 @@
             {{ $t("auth.login") }}
           </NuxtLink>
         </div>
+        <NuxtLink to="/auth/reset" class="text-sm mt-2 text-center underline">
+          {{ $t("forgot_password") }}
+        </NuxtLink>
       </div>
     </Card>
   </section>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useToast } from "@/components/ui/toast/use-toast";
 import * as z from "zod";
 import { InputWrapper, FormWrapper } from "~/components/forms";
@@ -55,7 +81,7 @@ definePageMeta({
 
 const { toast } = useToast();
 
-const pendingAuth = ref<boolean>(false);
+const pendingAuth = ref(false);
 
 const route = useRoute();
 
@@ -80,7 +106,7 @@ const FormWrapperSchema = computed(() => {
   }
 });
 
-async function submitAuth(values: Object) {
+async function submitAuth(values) {
   pendingAuth.value = true;
 
   try {
@@ -103,7 +129,7 @@ async function submitAuth(values: Object) {
       }
     }
 
-    const response: any = await auth.loginWith("cookie", { body: values });
+    const response = await auth.loginWith("cookie", { body: values });
 
     const user = {
       ...response._data.user,
@@ -114,8 +140,9 @@ async function submitAuth(values: Object) {
     await auth.setUserToken(user.access_token);
 
     toast({
-      title: `${user?.username} ${logging.value ? "inició sesión" : "se registró"
-        } correctamente`,
+      title: `${user?.username} ${
+        logging.value ? "inició sesión" : "se registró"
+      } correctamente`,
       variant: "success",
     });
 
