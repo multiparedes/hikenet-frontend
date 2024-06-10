@@ -36,6 +36,7 @@
     "embla-carousel": "^8.0.0",
     "embla-carousel-vue": "^8.0.0",
     "leaflet": "^1.9.4",
+    "leaflet-gpx": "^1.7.0",
     "lucide-vue-next": "^0.331.0",
     "nuxt": "^3.10.2",
     "pinia": "^2.1.7",

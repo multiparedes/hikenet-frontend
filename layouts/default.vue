@@ -1,6 +1,6 @@
 <template>
   <main
-    class="bg-content dark:bg-content-dark flex flex-col relative min-h-screen overflow-hidden"
+    class="px-2 bg-content dark:bg-content-dark flex flex-col relative min-h-screen overflow-hidden"
   >
     <Toaster />
 

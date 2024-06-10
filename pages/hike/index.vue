@@ -1,28 +1,47 @@
 <template>
   <section>
-    <FormWrapper :validation="validationSchema" @submit="createHike">
+    <Loader v-if="!editingHike && editingId"></Loader>
+    <FormWrapper
+      v-else
+      :validation="validationSchema"
+      :initial="editingHike"
+      @submit="handleAction"
+    >
       <div class="grid grid-cols-2 gap-x-2">
         <InputWrapper name="title" :label="$t('name')" />
-        <RangeWrapper name="difficulty" type="number" :label="$t('difficulty')" :min="1" :max="10"
-          :description="$t('difficulty_explainer')" />
+        <RangeWrapper
+          name="difficulty"
+          type="number"
+          :label="$t('difficulty')"
+          :min="1"
+          :max="10"
+          :description="$t('difficulty_explainer')"
+        />
 
         <div class="col-span-2">
-          <TextAreaWrapper name="description" :label="$t('description')" :placeholder="$t('write_a_description')" />
+          <TextAreaWrapper
+            name="description"
+            :label="$t('description')"
+            :placeholder="$t('write_a_description')"
+          />
         </div>
         <div class="col-span-2">
           <FormField v-slot="{ componentField }" name="contents">
             <FormLabel>{{ $t("map_itinerary") }}</FormLabel>
-
             <FormControl>
-              <LeafletMap v-bind="componentField" v-model="markers"></LeafletMap>
+              <LeafletMap
+                v-bind="componentField"
+                v-model="markers"
+                :center="editingHike?.location"
+              ></LeafletMap>
             </FormControl>
             <FormMessage />
           </FormField>
         </div>
         <FileUpload v-model="images" class="mt-4"></FileUpload>
         <Button class="mt-4" type="submit" :loading="waitingQuery">{{
-      $t("create")
-          }}</Button>
+          editingId ? $t("edit") : $t("create")
+        }}</Button>
       </div>
     </FormWrapper>
   </section>
@@ -43,10 +62,13 @@ const { t } = useI18n();
 const api = useApi();
 const { toast } = useToast();
 
+const editingId = useRoute().query?.id;
+const editingHike = ref(null);
+
 const waitingQuery = ref(false);
 
 const markers = ref([]);
-const images = ref([])
+const images = ref([]);
 
 const validationSchema = ref({
   title: z.string().trim().min(1),
@@ -64,12 +86,67 @@ const validationSchema = ref({
     .nonempty(),
 });
 
-async function createHike(values) {
+async function fetchData() {
+  if (!editingId) return;
+
+  const { data, error } = await api.get(`/posts/${editingId}`);
+
+  if (error.value) {
+    toast({
+      title: t("error"),
+      variant: "destructive",
+    });
+
+    return navigateTo(useLocalePath()("/"));
+  }
+
+  if (data.value.User.id !== useAuth().user.id) {
+    toast({
+      title: t("cant_edit_hike"),
+      variant: "destructive",
+    });
+
+    return navigateTo(useLocalePath()("/"));
+  }
+
+  // Convert base64 images to Blob
+  const convertBase64ToBlob = (base64) => {
+    const byteCharacters = atob(base64.split(",")[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const mimeType = base64.match(/data:(.*?);base64,/)[1];
+    return new Blob([byteArray], { type: mimeType });
+  };
+
+  markers.value = data.value.contents;
+
+  // Convert all base64 images to Blob
+  images.value = data.value.images.map((base64Image) =>
+    convertBase64ToBlob(base64Image)
+  );
+
+  images.value = data.value.images;
+
+  editingHike.value = {
+    ...data.value,
+    difficulty: [data.value.difficulty],
+  };
+}
+
+fetchData();
+
+async function handleAction(values) {
   waitingQuery.value = true;
 
-  const { data, error } = await api.post(`posts/${useAuth()?.user?.username}`, {
-    body: { ...values, location: await getCenter(values.contents), images },
-  });
+  const { data, error } = await api[editingId ? "patch" : "post"](
+    `posts/${editingId ? editingId : useAuth()?.user?.username}`,
+    {
+      body: { ...values, location: await getCenter(values.contents), images },
+    }
+  );
 
   if (error.value) {
     toast({
