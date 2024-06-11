@@ -28,7 +28,11 @@ const useApi = () => {
     return makeRequest("PATCH", path, options);
   };
 
-  return { get, post, patch };
+  const _delete = (path: string, options: any = {}) => {
+    return makeRequest("DELETE", path, options);
+  };
+
+  return { get, post, patch, _delete };
 };
 
 export default useApi;

@@ -21,8 +21,15 @@
             <div class="flex justify-between">
               <h1 class="text-lg text-primary-600">{{ post.title }}</h1>
               <div class="flex gap-2 items-center">
-                <p>{{ hike?.likes ?? 0 }}</p>
-                <Icon name="fluent:heart-48-regular" />
+                <p>{{ post?.Likes.length ?? 0 }}</p>
+                <Icon
+                  :name="
+                    hikeLiked(post.id)
+                      ? 'fluent:heart-48-filled'
+                      : 'fluent:heart-48-regular'
+                  "
+                  :class="{ 'text-red-400': hikeLiked(post.id) }"
+                />
               </div>
             </div>
             <p>{{ post.description }}</p>
@@ -89,6 +96,8 @@ import uniqolor from "uniqolor";
 import { FormWrapper, InputWrapper } from "~/components/forms";
 import * as z from "zod";
 
+const userId = useAuth().user.id;
+
 const currentPage = ref(0);
 const pageLimit = 2;
 const nextUrl = ref(
@@ -124,6 +133,11 @@ async function fetchData() {
 }
 
 fetchData();
+
+function hikeLiked(postId) {
+  const post = posts.value.find((p) => p.id === postId);
+  return post.Likes.filter((l) => l.userId === userId).length !== 0;
+}
 
 function handleClick(id) {
   return navigateTo(`/hike/${id}`);

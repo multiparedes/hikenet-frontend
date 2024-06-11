@@ -26,11 +26,17 @@
 
       <Card class="flex gap-x-4 items-center">
         <div class="flex flex-col items-end">
-          <button class="flex gap-2 items-center group">
-            <p>{{ hike?.likes ?? 0 }} {{ $t("likes").toLocaleLowerCase() }}</p>
+          <button class="flex gap-2 items-center group" @click="updateLike">
+            <p>
+              {{ hike?.Likes.length ?? 0 }}
+              {{ $t("likes").toLocaleLowerCase() }}
+            </p>
             <Icon
-              name="fluent:heart-48-regular"
+              :name="
+                hikeLiked ? 'fluent:heart-48-filled' : 'fluent:heart-48-regular'
+              "
               class="group-hover:fill-red-400 group-hover:text-red-400 transition-all"
+              :class="{ 'text-red-400': hikeLiked }"
             />
           </button>
           <div class="flex gap-2 items-center">
@@ -91,4 +97,23 @@ async function fetchData() {
 }
 
 fetchData();
+
+const hikeLiked = computed(() => {
+  const userId = useAuth().user.id;
+  return hike.value.Likes.filter((l) => l.userId === userId).length !== 0;
+});
+
+async function updateLike() {
+  const { data, error } = await api[hikeLiked.value ? "_delete" : "post"](
+    `/posts/${hike.value.id}/likes/${useAuth().user.id}`
+  );
+
+  if (hikeLiked.value) {
+    hike.value.Likes = hike.value.Likes.filter(
+      (l) => l.userId !== useAuth().user.id
+    );
+  } else {
+    hike.value.Likes.push(data.value);
+  }
+}
 </script>
