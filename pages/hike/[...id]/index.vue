@@ -35,7 +35,7 @@
           </button>
           <div class="flex gap-2 items-center">
             <p>
-              {{ hike?.comments?.length ?? 0 }}
+              {{ hike?.Comments?.length ?? 0 }}
               {{ $t("comments").toLocaleLowerCase() }}
             </p>
             <Icon name="fluent:comment-48-regular" />
