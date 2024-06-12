@@ -7,7 +7,7 @@
       :initial="editingHike"
       @submit="handleAction"
     >
-      <div class="grid grid-cols-2 gap-x-2">
+      <div class="md:grid flex flex-col grid-cols-2 gap-x-2">
         <InputWrapper name="title" :label="$t('name')" />
         <RangeWrapper
           name="difficulty"
@@ -38,7 +38,9 @@
             <FormMessage />
           </FormField>
         </div>
-        <FileUpload v-model="images" class="mt-4"></FileUpload>
+        <div class="grid md:block place-content-center w-full">
+          <FileUpload v-model="images" class="mt-4"></FileUpload>
+        </div>
         <Button class="mt-4" type="submit" :loading="waitingQuery">{{
           editingId ? $t("edit") : $t("create")
         }}</Button>
@@ -109,25 +111,7 @@ async function fetchData() {
     return navigateTo(useLocalePath()("/"));
   }
 
-  // Convert base64 images to Blob
-  const convertBase64ToBlob = (base64) => {
-    const byteCharacters = atob(base64.split(",")[1]);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const mimeType = base64.match(/data:(.*?);base64,/)[1];
-    return new Blob([byteArray], { type: mimeType });
-  };
-
   markers.value = data.value.contents;
-
-  // Convert all base64 images to Blob
-  images.value = data.value.images.map((base64Image) =>
-    convertBase64ToBlob(base64Image)
-  );
-
   images.value = data.value.images;
 
   editingHike.value = {

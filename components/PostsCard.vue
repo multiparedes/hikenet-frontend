@@ -23,7 +23,7 @@
           <div class="flex justify-between">
             <h1 class="text-lg text-primary-600">{{ post.title }}</h1>
             <div class="flex gap-2 items-center">
-              <p>{{ hike?.likes ?? 0 }}</p>
+              <p>{{ post.Likes.length ?? 0 }}</p>
               <Icon name="fluent:heart-48-regular" />
             </div>
           </div>

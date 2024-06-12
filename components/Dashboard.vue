@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-lg font-semibold">Hikes related to me</h1>
+    <h1 class="text-lg font-semibold">{{ $t("my_hikes") }}</h1>
     <section class="flex flex-col gap-4" v-auto-animate>
       <Card v-for="(post, idx) in posts" :key="post.id" class="override">
         <div
@@ -85,9 +85,11 @@
 
     <Loader v-if="pendingQuery" />
 
-    <Button class="mt-2" v-if="nextUrl" @click="fetchData" type="button"
-      >Load more</Button
-    >
+    <p class="text-center" v-else-if="posts.length === 0 && !pendingQuery">
+      {{ $t("no_data_to show") }}
+    </p>
+
+    <div ref="observerTarget" class="h-1"></div>
   </div>
 </template>
 
@@ -110,11 +112,12 @@ const validationSchema = ref({
   text: z.string().trim().min(1),
 });
 
-const pendingQuery = ref(false);
+const pendingQuery = ref(true);
 const posts = ref([]);
 const api = useApi();
 const showCreateComment = ref([]);
 const showLoadingComment = ref([]);
+const observerTarget = ref(null);
 
 async function fetchData() {
   pendingQuery.value = true;
@@ -161,6 +164,33 @@ async function postComment(postId, values) {
   showCreateComment.value[postIdx] = false;
   showLoadingComment.value[postIdx] = false;
 }
+
+function createObserver() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && nextUrl.value && !pendingQuery.value) {
+        fetchData();
+      }
+    },
+    {
+      rootMargin: "100px",
+    }
+  );
+
+  if (observerTarget.value) {
+    observer.observe(observerTarget.value);
+  }
+
+  onBeforeUnmount(() => {
+    if (observerTarget.value) {
+      observer.unobserve(observerTarget.value);
+    }
+  });
+}
+
+onMounted(() => {
+  createObserver();
+});
 </script>
 
 <style scoped>

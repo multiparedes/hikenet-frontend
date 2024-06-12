@@ -9,18 +9,6 @@
         name="search"
         @update="debouncedSearch"
       />
-
-      <div class="flex gap-x-2 items-center md:justify-end justify-between">
-        <p>{{ $t("upload_hike_map") }}</p>
-        <Button
-          type="button"
-          size="sm"
-          variant="outline"
-          icon="fluent:arrow-upload-16-regular"
-          @click="uploadGPX"
-          >{{ $t("uplaod") }}</Button
-        >
-      </div>
     </div>
 
     <div id="map" class="h-[35em] rounded-md overflow-clip relative">
@@ -315,17 +303,6 @@ function connectTheDots(data) {
     }
   }
   return coords;
-}
-
-function uploadGPX() {
-  new L.GPX(test, {
-    async: true,
-  })
-    .on("loaded", function (e) {
-      let gpx = e.target;
-      map.value.fitBounds(gpx.getBounds());
-    })
-    .addTo(map.value);
 }
 </script>
 

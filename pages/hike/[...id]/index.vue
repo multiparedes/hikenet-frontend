@@ -1,14 +1,14 @@
 <template>
   <Loader v-if="pageLoading" />
   <section v-else class="flex flex-col gap-4">
-    <div class="flex justify-between">
-      <Card class="w-fit">
-        <div class="flex gap-1">
+    <div class="flex justify-between md:flex-row flex-col md:gap-0 gap-4">
+      <Card class="md:w-fit flex flex-col justify-start">
+        <div class="flex gap-x-1 flex-col md:flex-row">
           <p class="text-primary-600">{{ hike.title }}</p>
           <p>{{ $t("by") }} {{ hike.User.fullName }}</p>
         </div>
 
-        <div class="flex gap-2 justify-center items-center">
+        <div class="flex gap-2 items-center md:w-fit w-full justify-between">
           <p>
             {{ $t("difficulty") }}
             <span>{{ hike.difficulty }} / 10</span>
@@ -25,7 +25,7 @@
       </Card>
 
       <Card class="flex gap-x-4 items-center">
-        <div class="flex flex-col items-end">
+        <div class="flex md:flex-col justify-between w-full items-end">
           <button class="flex gap-2 items-center group" @click="updateLike">
             <p>
               {{ hike?.Likes.length ?? 0 }}
@@ -62,14 +62,31 @@
       <p>{{ $t("description") }}: {{ hike.description }}</p>
     </Card>
 
-    <div v-if="hike.images.length > 0" class="flex gap-2">
-      <div v-for="(image, index) in hike.images" :key="index">
-        <img
-          :src="image"
-          :alt="'Image ' + (index + 1)"
-          class="max-w-xs h-auto"
-        />
-      </div>
+    <div class="grid md:block place-content-center w-full">
+      <Carousel v-if="hike.images.length > 0" class="relative w-full">
+        <CarouselContent>
+          <CarouselItem
+            class="basis-1/3"
+            v-for="(blob, index) in hike.images"
+            :key="index"
+          >
+            <div class="p-1">
+              <Card>
+                <CardContent
+                  class="flex aspect-square items-center justify-center flex-col"
+                >
+                  <img :src="blob" class="object-cover w-full h-full" />
+                </CardContent>
+              </Card>
+            </div>
+            <p class="py-1 text-center">
+              {{ index + 1 }} / {{ hike.images.length }}
+            </p>
+          </CarouselItem>
+        </CarouselContent>
+        <CarouselPrevious v-show="hike.images.length > 0" />
+        <CarouselNext v-show="hike.images.length > 0" />
+      </Carousel>
     </div>
   </section>
 </template>

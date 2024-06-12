@@ -61,5 +61,18 @@
   "no_posts_yet": "Aquest usuari encara no té cap publicació",
   "by": "per",
   "likes": "M'agrada",
-  "comments": "Comentaris"
+  "comments": "Comentaris",
+  "says": "diu",
+  "create_comment": "Crea un comentari",
+  "new_comment": "Escriu un nou comentari per a aquesta publicació...",
+  "comment": "Comentar",
+  "upload_images": "Carregueu imatges",
+  "delete_images": "Elimina imatges",
+  "no_data_to show": "Actualment no tenim cap dada per mostrar. \nPodeu començar seguint alguns usuaris i ampliar la vostra xarxa.",
+  "forgot_password": "Has oblidat la contrasenya?",
+  "reset_password": "Restablir la contrasenya",
+  "reset": "Restableix",
+  "send": "Enviar",
+  "password_reseted_successfully": "La contrasenya s'ha restablit correctament",
+  "my_hikes": "Excursions relacionades amb mi"
 }

@@ -61,5 +61,18 @@
   "no_posts_yet": "Este usuario aún no tiene ninguna publicación",
   "by": "por",
   "likes": "Gustos",
-  "comments": "Comentarios"
+  "comments": "Comentarios",
+  "says": "dice",
+  "create_comment": "Crear comentario",
+  "new_comment": "Escribe un nuevo comentario para esta publicación...",
+  "comment": "Comentar",
+  "upload_images": "Subir imágenes",
+  "delete_images": "Eliminar imágenes",
+  "forgot_password": "¿Has olvidado tu contraseña?",
+  "reset_password": "Restablecer la contraseña",
+  "reset": "Reiniciar",
+  "send": "Enviar",
+  "password_reseted_successfully": "Contraseña restablecida exitosamente",
+  "my_hikes": "Caminatas relacionadas conmigo",
+  "no_data_to show": "Actualmente no tenemos ningún dato para mostrar. \nPuede comenzar siguiendo a algunos usuarios y expandir su red."
 }

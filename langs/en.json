@@ -61,5 +61,18 @@
   "no_posts_yet": "This user doesn't have any posts yet",
   "by": "by",
   "likes": "Likes",
-  "comments": "Comments"
+  "comments": "Comments",
+  "says": "says",
+  "create_comment": "Create comment",
+  "new_comment": "Type a new comment for this post...",
+  "comment": "Comment",
+  "upload_images": "Upload images",
+  "delete_images": "Delete images",
+  "no_data_to show": "We currently don't have any data to display. You can start by following some users and expland your network.",
+  "forgot_password": "Forgot password?",
+  "reset_password": "Reset password",
+  "reset": "Reset",
+  "send": "Send",
+  "password_reseted_successfully": "Password reseted successfully",
+  "my_hikes": "Hikes related to me"
 }

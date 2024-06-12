@@ -65,6 +65,7 @@ import * as z from "zod";
 const { toast } = useToast();
 
 const api = useApi();
+const { t } = useI18n();
 
 definePageMeta({
   middleware: "user-guest",
@@ -109,7 +110,7 @@ async function resetPassword(values) {
     return;
   }
   toast({
-    title: `Contraseña actualizada`,
+    title: t("password_reseted_successfully"),
     variant: "success",
   });
 
