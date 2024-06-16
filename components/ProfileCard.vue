@@ -105,9 +105,6 @@
             >
               {{ followMessage }}
             </Button>
-            <Button icon="fluent:note-add-16-regular" icon-start>{{
-              $t("message")
-            }}</Button>
           </div>
         </div>
 
