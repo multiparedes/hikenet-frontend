@@ -14,13 +14,11 @@
             <span>{{ hike.difficulty }} / 10</span>
           </p>
 
-          <span
-            class="bg-secondary-300 px-2 py-0.5 rounded-md dark:bg-secondary-800"
-            >{{ hike.location?.resolved?.country }} -
+          <span class="bg-secondary-300 px-2 py-0.5 rounded-md dark:bg-secondary-800">{{
+    hike.location?.resolved?.country }} -
             {{
-              hike.location.resolved.city ?? hike.location.resolved.province
-            }}</span
-          >
+    hike.location.resolved.city ?? hike.location.resolved.province
+  }}</span>
         </div>
       </Card>
 
@@ -31,13 +29,9 @@
               {{ hike?.Likes.length ?? 0 }}
               {{ $t("likes").toLocaleLowerCase() }}
             </p>
-            <Icon
-              :name="
-                hikeLiked ? 'fluent:heart-48-filled' : 'fluent:heart-48-regular'
-              "
-              class="group-hover:fill-red-400 group-hover:text-red-400 transition-all"
-              :class="{ 'text-red-400': hikeLiked }"
-            />
+            <Icon :name="hikeLiked ? 'fluent:heart-48-filled' : 'fluent:heart-48-regular'
+    " class="group-hover:fill-red-400 group-hover:text-red-400 transition-all"
+              :class="{ 'text-red-400': hikeLiked }" />
           </button>
           <div class="flex gap-2 items-center">
             <p>
@@ -47,12 +41,8 @@
             <Icon name="fluent:comment-48-regular" />
           </div>
         </div>
-        <Button
-          v-if="hike.User.id === $auth.user.id"
-          icon="fluent:edit-12-regular"
-          :link="`/hike?id=${hike.id}`"
-          >{{ $t("edit") }}</Button
-        >
+        <Button v-if="hike.User.id === $auth.user.id" icon="fluent:edit-12-regular" :link="`/hike?id=${hike.id}`">{{
+    $t("edit") }}</Button>
       </Card>
     </div>
 
@@ -63,18 +53,12 @@
     </Card>
 
     <div class="grid md:block place-content-center w-full">
-      <Carousel v-if="hike.images.length > 0" class="relative w-full">
+      <Carousel v-if="hike.images?.length > 0" class="relative w-full">
         <CarouselContent>
-          <CarouselItem
-            class="basis-1/3"
-            v-for="(blob, index) in hike.images"
-            :key="index"
-          >
+          <CarouselItem class="basis-1/3" v-for="(blob, index) in hike.images" :key="index">
             <div class="p-1">
               <Card>
-                <CardContent
-                  class="flex aspect-square items-center justify-center flex-col"
-                >
+                <CardContent class="flex aspect-square items-center justify-center flex-col">
                   <img :src="blob" class="object-cover w-full h-full" />
                 </CardContent>
               </Card>
