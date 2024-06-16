@@ -4,7 +4,7 @@
       {{ $t("no_posts_yet") }}
     </p>
 
-    <div v-else class="flex flex-col gap-y-2">
+    <div v-else class="flex flex-col gap-y-2 max-h-[90vh] overflow-y-auto">
       <Card
         v-for="post in posts"
         :key="post.id"
