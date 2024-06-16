@@ -2,8 +2,8 @@
   <Card class="override">
     <div
       :id="`map-${id}`"
-      class="rounded-md overflow-clip relative h-full"
-      :class="isPreview ? 'h-[10em] pointer-events-none hid' : 'h-[35em]'"
+      class="rounded-md overflow-clip relative"
+      :class="isPreview ? 'h-full pointer-events-none hid' : 'h-[35em]'"
     ></div>
   </Card>
 </template>
