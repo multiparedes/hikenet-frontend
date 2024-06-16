@@ -23,12 +23,12 @@
       </div>
 
       <div v-else>
-        <FormWrapper :validation="FormWrapperSchema" @submit="resetPassword">
+        <FormWrapper :validation="FormWrapperSchemaPassword" @submit="resetPassword">
           <InputWrapper name="password" type="password" icon="password" :label="$t('password')"
             :placeholder="`${$t('password')}...`" />
           <Button class="w-full mt-2" type="submit">{{
           $t("reset")
-            }}</Button>
+        }}</Button>
         </FormWrapper>
       </div>
     </Card>
@@ -63,6 +63,10 @@ const resetEmail = ref("");
 
 const FormWrapperSchema = computed(() => ({
   email: z.string().trim().email(),
+}));
+
+const FormWrapperSchemaPassword = computed(() => ({
+  password: z.string().trim().min(4),
 }));
 
 async function submitReset(values) {
