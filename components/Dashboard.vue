@@ -28,7 +28,8 @@
           </div>
         </div>
 
-        <div class="bg-slate-200 px-2 py-1 flex flex-col" v-auto-animate>
+        <div class="bg-slate-200 px-2 py-1 flex flex-col rounded-b-md dark:bg-slate-500 dark:text-slate-950"
+          v-auto-animate>
           <div class="max-h-[6em] overflow-y-auto my-1">
             <p v-for="comment in post.Comments">
               <span class="font-semibold">@{{ comment.userId }}</span>
