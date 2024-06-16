@@ -89,11 +89,12 @@
       {{ $t("no_data_to show") }}
     </p>
 
-    <div ref="observerTarget" class="h-1"></div>
+    <div ref="observerTarget" class="h-10"></div>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import uniqolor from "uniqolor";
 import { FormWrapper, InputWrapper } from "~/components/forms";
 import * as z from "zod";
@@ -118,6 +119,7 @@ const api = useApi();
 const showCreateComment = ref([]);
 const showLoadingComment = ref([]);
 const observerTarget = ref(null);
+const observer = ref(null);
 
 async function fetchData() {
   pendingQuery.value = true;
@@ -165,31 +167,34 @@ async function postComment(postId, values) {
   showLoadingComment.value[postIdx] = false;
 }
 
-function createObserver() {
-  const observer = new IntersectionObserver(
+onMounted(() => {
+  observer.value = new IntersectionObserver(
     (entries) => {
-      if (entries[0].isIntersecting && nextUrl.value && !pendingQuery.value) {
-        fetchData();
-      }
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting) {
+          return;
+        }
+
+        observer.value.unobserve(target);
+
+        if (nextUrl.value && !pendingQuery.value) {
+          fetchData();
+        }
+      });
     },
     {
-      rootMargin: "100px",
+      root: observerTarget.value,
+      threshold: 1.0,
     }
   );
 
   if (observerTarget.value) {
-    observer.observe(observerTarget.value);
+    observer.value.observe(observerTarget.value);
   }
+});
 
-  onBeforeUnmount(() => {
-    if (observerTarget.value) {
-      observer.unobserve(observerTarget.value);
-    }
-  });
-}
-
-onMounted(() => {
-  createObserver();
+onBeforeUnmount(() => {
+  observer.value.disconnect();
 });
 </script>
 
