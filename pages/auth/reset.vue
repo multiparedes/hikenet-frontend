@@ -1,29 +1,19 @@
 <template>
   <section class="grid place-content-center h-full">
-    <Card
-      class="grid grid-cols-1 gap-4 items-center p-0 overflow-clip px-4 py-2"
-    >
+    <Card class="grid grid-cols-1 gap-4 items-center p-0 overflow-clip px-4 py-2">
       <p class="text-center">
         {{ $t("reset_password") }}
       </p>
 
-      <FormWrapper
-        v-if="!sentReset"
-        :validation="FormWrapperSchema"
-        @submit="submitReset"
-      >
-        <InputWrapper
-          name="email"
-          :label="$t('email')"
-          :placeholder="`${$t('email')}...`"
-        />
+      <FormWrapper v-if="!sentReset" :validation="FormWrapperSchema" @submit="submitReset">
+        <InputWrapper name="email" :label="$t('email')" :placeholder="`${$t('email')}...`" />
         <Button class="w-full mt-2">{{ $t("reset") }}</Button>
       </FormWrapper>
 
       <div v-else-if="sentReset && !otpValid">
         <PinInput v-model="otpCode" placeholder="x" @complete="handleReset">
           <PinInputGroup>
-            <PinInputInput v-for="(id, index) in 6" :key="id" :index="index" />
+            <PinInputInput class="text-slate-950 dark:text-white" v-for="(id, index) in 6" :key="id" :index="index" />
           </PinInputGroup>
         </PinInput>
 
@@ -33,17 +23,12 @@
       </div>
 
       <div v-else>
-        <FormWrapper :validation="FormWrapperSchema" @submit="submitReset">
-          <InputWrapper
-            name="password"
-            type="password"
-            icon="password"
-            :label="$t('password')"
-            :placeholder="`${$t('password')}...`"
-          />
-          <Button class="w-full mt-2" @click="resetPassword">{{
-            $t("reset")
-          }}</Button>
+        <FormWrapper :validation="FormWrapperSchema" @submit="resetPassword">
+          <InputWrapper name="password" type="password" icon="password" :label="$t('password')"
+            :placeholder="`${$t('password')}...`" />
+          <Button class="w-full mt-2" type="submit">{{
+          $t("reset")
+            }}</Button>
         </FormWrapper>
       </div>
     </Card>
