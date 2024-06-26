@@ -35,9 +35,10 @@
         <CarouselContent>
           <CarouselItem v-for="(blob, index) in images" :key="index">
             <div class="p-1">
-              <Card>
+              <Card style="padding: 0em !important">
                 <CardContent
                   class="flex aspect-square items-center justify-center flex-col"
+                  style="padding: 0em !important"
                 >
                   <img :src="blob" class="object-cover w-full h-full" />
                 </CardContent>
